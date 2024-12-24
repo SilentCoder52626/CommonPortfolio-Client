@@ -44,6 +44,9 @@
 import axios from '@/plugins/axios'
 import { reactive } from 'vue';
 import router from '@/router';
+import { useToast } from '@/composables/useToast';
+
+const $toast = useToast();
 
 const data = reactive({
     userName: "",
@@ -55,16 +58,18 @@ const data = reactive({
 })
 const submit = async () =>{
     if(data.password != data.confirmPassword){
-        alert("Password and confirm password mis-matched.")
+      $toast.info("Password and confirm password mis-matched.")
         return;
     }
     var response = await axios.post("auth/register",JSON.stringify(data));
-    if(response.status == 200){
-        alert("Successfyully registered.");
+    debugger;
+    if(response.status === 200){
+      $toast.success("Successfyully registered.");
         await router.push("/login");
     }else{
-        alert("Something went wrong.");
 
+      console.error(response);
+      $toast.error(response.data.reason, 'Error'); 
     }
 }
 </script>

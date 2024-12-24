@@ -13,7 +13,6 @@ onMounted(async  () => {
    if(response.status == 200){
       const user = await response.data;
       message.value = "Hello, " + user.name;
-
    }
 })
 

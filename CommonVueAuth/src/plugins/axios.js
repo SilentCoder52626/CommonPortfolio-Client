@@ -27,7 +27,7 @@ axiosInstance.interceptors.response.use((response) => response,
             //add a notify
             router.push("/login");
         }
-        return Promise.reject(error);
+        return error.response;
     }
 )
 

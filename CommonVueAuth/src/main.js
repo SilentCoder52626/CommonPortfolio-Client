@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 import toastrPlugin from './plugins/toastrPlugin';
 
+
 const app = createApp(App)
 
 const pinia = createPinia()

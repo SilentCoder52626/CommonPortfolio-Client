@@ -15,21 +15,7 @@ const toastrPlugin = {
       ...options, // Merge user options with defaults
     };
 
-    // Add toastr methods to the global instance
-    app.config.globalProperties.$toast = {
-      success(message, title = '') {
-        toastr.success(message, title);
-      },
-      error(message, title = '') {
-        toastr.error(message, title);
-      },
-      info(message, title = '') {
-        toastr.info(message, title);
-      },
-      warning(message, title = '') {
-        toastr.warning(message, title);
-      },
-    };
+    app.provide('toast', toastr);
   },
 };
 

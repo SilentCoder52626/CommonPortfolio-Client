@@ -29,7 +29,9 @@ import axios from '@/plugins/axios'
 import { reactive } from 'vue';
 import router from '../router';
 import { useAuthStore } from '@/stores/authStore';
+import { useToast } from '@/composables/useToast';
 
+const $toast = useToast();
 const authStore = useAuthStore();
 
 const data =  reactive(
@@ -47,11 +49,9 @@ const validation =  reactive(
 const submit =  async () =>{
     validation.userNameVal = "";
     validation.passwordVal = "";
-    debugger;
 
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
-        debugger;
         if (response.status === 200) {
             const authResponse = await response.data;
             
@@ -66,7 +66,7 @@ const submit =  async () =>{
             await router.push("/");
         } else {
             console.error(response);
-            $toast.error('Something went wrong.', 'Error');
+            $toast.error(response.data.reason, 'Error'); 
 
         }
     }
