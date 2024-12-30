@@ -1,27 +1,18 @@
 <script setup>
-import { RouterView } from 'vue-router';
-import Nav from "@/components/Nav.vue";
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
 
-import { useAuthStore } from './stores/authStore';
+const defaultLayout = 'default'
 
-const authStore = new useAuthStore();
+const { currentRoute } = useRouter()
+
+const layout = computed(
+  () => `${currentRoute.value.meta.layout || defaultLayout}-layout`,
+)
 </script>
 
 <template>
-  
-<main class="w-full md:w-[calc(100%-256px)] md:ml-64 bg-gray-50 min-h-screen transition-all main">
-  
-  <template v-if="authStore.isLoggedIn">
-
-<Nav />
+  <component :is="layout">
+    <router-view />
+  </component>
 </template>
-  <div class="p-6">
-  <RouterView />
-</div>
-  </main>
-
-</template>
-
-<style scoped>
-
-</style>

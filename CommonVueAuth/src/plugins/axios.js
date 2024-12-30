@@ -1,5 +1,6 @@
 import axios from "axios";
-import router from "@/router";
+import router from "../router";
+import { useAuthStore } from '../stores/authStore';
 
 const apiHost = import.meta.env.VITE_API_HOST;
 
@@ -24,7 +25,9 @@ axiosInstance.interceptors.request.use((config) => {
 axiosInstance.interceptors.response.use((response) => response, 
     (error) => {
         if(error.response && error.response.status === 401){
-            //add a notify
+            
+            useAuthStore.clearAuthDetails;
+
             router.push("/login");
         }
         return error.response;
