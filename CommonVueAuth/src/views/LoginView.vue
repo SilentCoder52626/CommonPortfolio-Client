@@ -108,7 +108,7 @@ const login =  async () =>{
 
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
-        debugger;
+        
         if (response.status === 200) {
             const authResponse = await response.data;
             

@@ -1,6 +1,7 @@
 <script setup >
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+
 </script>
 
 <template>
@@ -15,6 +16,10 @@ import Header from './Header.vue'
           <slot />
         </div>
       </main>
+     
+
+
     </div>
+    
   </div>
 </template>
