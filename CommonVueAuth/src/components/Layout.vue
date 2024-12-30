@@ -1,10 +1,14 @@
 <script setup >
 import Sidebar from './Sidebar.vue'
 import Header from './Header.vue'
+import Footer from './Footer.vue';
+
+import { useAuthStore } from '@/stores/authStore';
+const authStore = useAuthStore();
 
 </script>
 
-<template>
+<template v-if="authStore.isLoggedIn">
   <div class="flex h-screen bg-gray-100 font-roboto">
     <Sidebar />
 
@@ -16,7 +20,7 @@ import Header from './Header.vue'
           <slot />
         </div>
       </main>
-     
+      <Footer/>
 
 
     </div>
