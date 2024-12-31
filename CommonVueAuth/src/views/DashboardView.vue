@@ -23,16 +23,16 @@ const dashboardTemplate = ref(null);
 onMounted(async () => {
     try {
       
-      $loader.blockContent(dashboardTemplate.value);
+      $loader.blockWindow(dashboardTemplate.value);
       
       const response = await axios.get("/api/user-details");
       if (response.status === 200) {
         const user = response.data;
         message.value = "Hello, " + user.name;
-        $loader.unBlockContent();
+        $loader.unBlockWindow();
       } else {
         $toast.error("Something went wrong.", "Error!");
-        $loader.unBlockContent();
+        $loader.unBlockWindow();
 
       }
     } catch (error) {

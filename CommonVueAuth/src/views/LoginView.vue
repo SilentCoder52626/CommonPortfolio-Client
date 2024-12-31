@@ -112,7 +112,7 @@ const validation =  reactive(
 const login =  async () =>{
     validation.userNameVal = "";
     validation.passwordVal = "";
-    $loader.blockContent(loginTemplate.value);
+    $loader.blockWindow(loginTemplate.value);
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
         
@@ -126,13 +126,13 @@ const login =  async () =>{
               role: authResponse.role,
             });
             $toast.success('Login Successfully!', 'Success');
-            $loader.unBlockContent();
+            $loader.unBlockWindow();
 
             await router.push("/");
         } else {
             console.error(response);
             $toast.error(response.data.reason, 'Error'); 
-            $loader.unBlockContent();
+            $loader.unBlockWindow();
 
         }
     }
