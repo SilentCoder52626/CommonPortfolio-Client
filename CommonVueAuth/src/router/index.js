@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
+import { useAuthStore } from '@/stores/authStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -32,13 +33,19 @@ const router = createRouter({
 })
 
 router.beforeEach((to,from,next) => {
+const authStore = useAuthStore()
+
   const publicPages = ["/login","/register"];
   const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('token');
+  const loggedIn = authStore.isLoggedIn;
 
   if(authRequired && !loggedIn){
     next("/login");
-  }else{
+  }else if(to.path == "/login"){
+    authStore.clearAuthDetails();
+    next();
+  }
+  else{
     next();
   }
 })

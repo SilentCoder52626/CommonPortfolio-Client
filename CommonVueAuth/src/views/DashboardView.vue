@@ -16,14 +16,20 @@ import { useToast } from '../composables/useToast';
 
 const $toast = useToast();
 const message = ref("");
-onMounted(async  () => {
-   const response = await axios.get("/api/user-details");
-   if(response.status == 200){
-      const user = await response.data;
-      message.value = "Hello, " + user.name;
-   }else{
-    $toast.error("Something went wrong.","Error!");
-   }
-})
+
+onMounted(async () => {
+    try {
+      const response = await axios.get("/api/user-details");
+      if (response.status === 200) {
+        const user = response.data;
+        message.value = "Hello, " + user.name;
+        isLoaded = true;
+      } else {
+        $toast.error("Something went wrong.", "Error!");
+      }
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+});
 
 </script>
