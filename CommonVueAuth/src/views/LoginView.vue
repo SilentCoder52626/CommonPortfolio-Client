@@ -137,8 +137,6 @@ const login =  async () =>{
         }
     }
   
-    
-
 };
 const checkValidation = () => {
     if(!data.userName){

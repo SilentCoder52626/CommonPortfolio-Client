@@ -17,10 +17,10 @@ export function useLoader () {
             console.error('Invalid container provided to BlockContent. Must be a DOM element.');
             return;
           }
-          console.log(htmlContainer)
         loader.show({
             container : htmlContainer,
             color : "#4F46E5",
+            isFullPage : false
         })
     };
     const UnBlockContent = () => {
