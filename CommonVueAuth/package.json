@@ -15,7 +15,8 @@
     "pinia": "^2.2.6",
     "toastr": "^2.1.4",
     "vue-axios": "^3.5.2",
-    "vue-router": "^4.0.13"
+    "vue-router": "^4.0.13",
+    "vue3-loading-overlay": "^0.0.1"
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",

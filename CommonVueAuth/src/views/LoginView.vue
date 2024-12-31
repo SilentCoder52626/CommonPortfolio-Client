@@ -24,7 +24,7 @@
         <span class="text-2xl font-semibold text-gray-700">Common Portfolio</span>
       </div>
 
-      <form class="mt-4" @submit.prevent="login">
+      <form class="mt-4" @submit.prevent="login" ref="loginTemplate">
         <label class="block">
           <span class="text-sm text-gray-700">Username</span>
           <input
@@ -86,9 +86,16 @@ import { reactive } from 'vue';
 import router from '../router';
 import { useAuthStore } from '../stores/authStore';
 import { useToast } from '../composables/useToast';
+import { ref } from 'vue';
+import { useLoader } from '../composables/spinner';
 
 const $toast = useToast();
+const $loader = useLoader();
+
 const authStore = useAuthStore();
+
+const loginTemplate = ref(null);
+
 
 const data =  reactive(
   {
@@ -105,7 +112,7 @@ const validation =  reactive(
 const login =  async () =>{
     validation.userNameVal = "";
     validation.passwordVal = "";
-
+    $loader.blockContent(loginTemplate.value);
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
         
@@ -119,11 +126,13 @@ const login =  async () =>{
               role: authResponse.role,
             });
             $toast.success('Login Successfully!', 'Success');
+            $loader.unBlockContent();
 
             await router.push("/");
         } else {
             console.error(response);
             $toast.error(response.data.reason, 'Error'); 
+            $loader.unBlockContent();
 
         }
     }
@@ -134,10 +143,13 @@ const login =  async () =>{
 const checkValidation = () => {
     if(!data.userName){
       validation.userNameVal = "Username is required."
+      $loader.unBlockContent();
         return false;
     }
     if(!data.password){
       validation.passwordVal = "Password is required."
+      $loader.unBlockContent();
+
         return false;
     }
     return true;

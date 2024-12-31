@@ -1,5 +1,5 @@
-<template>
-  <div>
+<template >
+  <div ref="dashboardTemplate">
     
     <div>
       {{ message }}
@@ -13,19 +13,27 @@
 import axios from '../plugins/axios'
 import { onMounted,ref } from 'vue';
 import { useToast } from '../composables/useToast';
+import { useLoader } from '../composables/spinner';
 
 const $toast = useToast();
+const $loader = useLoader();
 const message = ref("");
+const dashboardTemplate = ref(null);
 
 onMounted(async () => {
     try {
+      
+      $loader.blockContent(dashboardTemplate.value);
+      
       const response = await axios.get("/api/user-details");
       if (response.status === 200) {
         const user = response.data;
         message.value = "Hello, " + user.name;
-        isLoaded = true;
+        $loader.unBlockContent();
       } else {
         $toast.error("Something went wrong.", "Error!");
+        $loader.unBlockContent();
+
       }
     } catch (error) {
       console.error("Error fetching user:", error);
