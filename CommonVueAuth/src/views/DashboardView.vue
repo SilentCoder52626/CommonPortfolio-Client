@@ -1,39 +1,36 @@
 <template >
-  <div ref="dashboardTemplate">
-    
-    <div>
-      {{ message }}
-    </div>
+  <div class="rounded overflow-hidden shadow-lg" ref="dashboardTemplate">
+    <div class="px-2 p-2">
 
+      {{ message }}
    
+    </div>
   </div>
 </template>
 
 <script setup>
 import axios from '../plugins/axios'
-import { onMounted,ref } from 'vue';
+import { h, onMounted,ref } from 'vue';
 import { useToast } from '../composables/useToast';
-import { useLoader } from '../composables/spinner';
+import loader from '../composables/loader';
+import { afterSlot } from '../composables/afterSlot';
 
 const $toast = useToast();
-const $loader = useLoader();
+
 const message = ref("");
 const dashboardTemplate = ref(null);
-
 onMounted(async () => {
     try {
-      
-      $loader.blockWindow(dashboardTemplate.value);
+      loader.BlockWindow(dashboardTemplate.value, afterSlot());
       
       const response = await axios.get("/api/user-details");
       if (response.status === 200) {
         const user = response.data;
         message.value = "Hello, " + user.name;
-        $loader.unBlockWindow();
+        loader.UnBlockWindow();
       } else {
         $toast.error("Something went wrong.", "Error!");
-        $loader.unBlockWindow();
-
+        loader.UnBlockWindow();
       }
     } catch (error) {
       console.error("Error fetching user:", error);

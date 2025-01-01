@@ -11,6 +11,7 @@ import "bootstrap/dist/css/bootstrap.min.css"
 
 import toastrPlugin from './plugins/toastrPlugin';
 
+
 import DashboardLayout from './components/Layout.vue'
 import EmptyLayout from './components/EmptyLayout.vue'
 

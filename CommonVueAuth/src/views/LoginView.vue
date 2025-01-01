@@ -87,10 +87,9 @@ import router from '../router';
 import { useAuthStore } from '../stores/authStore';
 import { useToast } from '../composables/useToast';
 import { ref } from 'vue';
-import { useLoader } from '../composables/spinner';
+import loader from '../composables/loader';
 
 const $toast = useToast();
-const $loader = useLoader();
 
 const authStore = useAuthStore();
 
@@ -112,7 +111,7 @@ const validation =  reactive(
 const login =  async () =>{
     validation.userNameVal = "";
     validation.passwordVal = "";
-    $loader.blockWindow(loginTemplate.value);
+    loader.BlockWindow(loginTemplate.value);
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
         
@@ -126,13 +125,13 @@ const login =  async () =>{
               role: authResponse.role,
             });
             $toast.success('Login Successfully!', 'Success');
-            $loader.unBlockWindow();
+            loader.UnBlockWindow();
 
             await router.push("/");
         } else {
             console.error(response);
             $toast.error(response.data.reason, 'Error'); 
-            $loader.unBlockWindow();
+            loader.UnBlockWindow();
 
         }
     }
