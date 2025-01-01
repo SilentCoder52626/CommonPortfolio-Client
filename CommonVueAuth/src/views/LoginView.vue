@@ -111,7 +111,7 @@ const validation =  reactive(
 const login =  async () =>{
     validation.userNameVal = "";
     validation.passwordVal = "";
-    loader.BlockWindow(loginTemplate.value);
+    loader.BlockWindow();
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
         

@@ -104,6 +104,7 @@ import axios from '../plugins/axios'
 import { reactive } from 'vue';
 import router from '../router';
 import { useToast } from '../composables/useToast';
+import loader from '../composables/loader';
 
 const $toast = useToast();
 
@@ -116,16 +117,19 @@ const data = reactive({
     confirmPassword : ""
 })
 const submit = async () =>{
-    if(data.password != data.confirmPassword){
+  loader.BlockWindow();
+  if(data.password != data.confirmPassword){
       $toast.info("Password and confirm password mis-matched.")
+      loader.UnBlockWindow();
         return;
     }
     var response = await axios.post("auth/register",JSON.stringify(data));
     if(response.status === 200){
       $toast.success("Successfyully registered.");
+      loader.UnBlockWindow();
         await router.push("/login");
     }else{
-
+      loader.UnBlockWindow();
       console.error(response);
       $toast.error(response.data.reason, 'Error'); 
     }
