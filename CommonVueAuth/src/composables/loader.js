@@ -1,4 +1,3 @@
-import { h  } from 'vue';
 import { useLoading } from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/css/index.css';
 
@@ -11,6 +10,7 @@ const $loader = useLoading(
 );
 
 let activeLoader = null;
+let htmlContainer = null;
 
 const BlockWindow = (container,slots) => {
     if (activeLoader) {
@@ -20,6 +20,10 @@ const BlockWindow = (container,slots) => {
         activeLoader = $loader.show(slots);
     }
     else{
+      if (container.classList) {
+          container.classList.add('relative');
+        }
+        htmlContainer = container;
         activeLoader = $loader.show({
             isFullPage: false,
             container,
@@ -30,12 +34,16 @@ const BlockWindow = (container,slots) => {
 
 const UnBlockWindow = () => {
   if (activeLoader) {
+    if (htmlContainer && htmlContainer.classList) {
+      htmlContainer.classList.remove('relative');
+    }
     activeLoader.hide();
     activeLoader = null;
+    htmlContainer = null;
   }
 };
 
 export default {
     BlockWindow,
-  UnBlockWindow,
+    UnBlockWindow,
 };

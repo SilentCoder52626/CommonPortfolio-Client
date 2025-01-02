@@ -26,7 +26,7 @@
         <span class="text-2xl font-semibold text-gray-700">Common Portfolio</span>
       </div>
 
-      <form class="mt-4" @submit.prevent="submit">
+      <form class="mt-4" @submit.prevent="submit" ref="RegisterForm">
         <label class="block">
           <span class="text-sm text-gray-700">Name</span>
           <input
@@ -101,13 +101,14 @@
 <script setup>
 
 import axios from '../plugins/axios'
-import { reactive } from 'vue';
+import { reactive,ref } from 'vue';
 import router from '../router';
 import { useToast } from '../composables/useToast';
 import loader from '../composables/loader';
+import { afterSlot } from '../composables/afterSlot';
 
 const $toast = useToast();
-
+const RegisterForm = ref(null);
 const data = reactive({
     userName: "",
     name: "",
@@ -117,7 +118,7 @@ const data = reactive({
     confirmPassword : ""
 })
 const submit = async () =>{
-  loader.BlockWindow();
+  loader.BlockWindow(RegisterForm,afterSlot("Please wait.."));
   if(data.password != data.confirmPassword){
       $toast.info("Password and confirm password mis-matched.")
       loader.UnBlockWindow();

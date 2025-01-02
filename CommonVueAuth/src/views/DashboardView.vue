@@ -1,6 +1,6 @@
 <template >
-  <div class="rounded overflow-hidden shadow-lg" ref="dashboardTemplate">
-    <div class="px-2 p-2">
+  <div class="rounded overflow-hidden shadow-lg w-1/4" ref="dashboardTemplate">
+    <div class="px-4 p-2">
 
       {{ message }}
    
@@ -10,7 +10,7 @@
 
 <script setup>
 import axios from '../plugins/axios'
-import { h, onMounted,ref } from 'vue';
+import { onMounted,ref } from 'vue';
 import { useToast } from '../composables/useToast';
 import loader from '../composables/loader';
 import { afterSlot } from '../composables/afterSlot';

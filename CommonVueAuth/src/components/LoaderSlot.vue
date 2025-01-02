@@ -1,5 +1,5 @@
 <template>
-    <span class="antialiased font-medium -ml-3">{{ message }}</span>
+    <span class="antialiased font-medium ">{{ message }}</span>
   </template>
   
   <script>
