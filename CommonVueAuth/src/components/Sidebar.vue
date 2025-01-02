@@ -47,7 +47,7 @@ const inactiveClass = ref(
             />
           </svg>
 
-          <span class="mx-2 text-2xl font-semibold text-white">CW-FOLIO</span>
+          <router-link to="/" class="mx-2 text-2xl font-semibold text-white">CW-FOLIO</router-link>
         </div>
       </div>
 
