@@ -125,7 +125,7 @@ const login =  async () =>{
               role: authResponse.role,
             });
             $toast.success('Login Successfully!', 'Success');
-            //loader.UnBlockWindow();
+            loader.UnBlockWindow();
 
             await router.push("/");
         } else {
