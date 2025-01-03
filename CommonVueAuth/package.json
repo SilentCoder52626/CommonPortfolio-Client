@@ -12,6 +12,7 @@
     "@popperjs/core": "^2.11.8",
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
+    "jwt-decode": "^4.0.0",
     "pinia": "^2.2.6",
     "toastr": "^2.1.4",
     "vue-axios": "^3.5.2",

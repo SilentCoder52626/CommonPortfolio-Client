@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col w-1/4">
-        <div class="w-full p-6 bg-white rounded-lg shadow max-w-md ">
+        <div class="w-full p-6 bg-white rounded-lg shadow-lg max-w-md ">
             <h2 class="mb-1 text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
                 Change Password
             </h2>

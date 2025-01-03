@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import DashboardView from '../views/DashboardView.vue'
 import { useAuthStore } from '@/stores/authStore'
+import { jwtDecode } from "jwt-decode";
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,21 +39,42 @@ const router = createRouter({
   ],
 })
 
-router.beforeEach((to,from,next) => {
-  const authStore = useAuthStore()
 
-  const publicPages = ["/login","/register"];
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+
+  const publicPages = ["/login", "/register"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = authStore.isLoggedIn;
 
-  if(authRequired && !loggedIn){
+  if (loggedIn) {
+    try {
+      debugger;
+      const decodedToken = jwtDecode(authStore.jwt);
+      const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
+
+      // Check if token is expired
+      if (decodedToken.exp < currentTime) {
+        authStore.clearAuthDetails();
+        next("/login");
+        return;
+      }
+    } catch (error) {
+      console.error("Invalid token or decoding error:", error);
+      authStore.clearAuthDetails();
+      next("/login");
+      return;
+    }
+  }
+
+  if (authRequired && !loggedIn) {
     next("/login");
-  }else if(to.path == "/login"){
+  } else if (to.path === "/login") {
     authStore.clearAuthDetails();
     next();
-  }
-  else{
+  } else {
     next();
   }
-})
+});
+
 export default router

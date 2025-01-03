@@ -1,5 +1,5 @@
 <template >
-  <div class="rounded overflow-hidden shadow-lg w-1/4" ref="dashboardTemplate">
+  <div class="rounded overflow-x-hidden shadow-lg w-1/4" ref="dashboardTemplate">
     <div class="px-4 p-2">
 
       {{ message }}
