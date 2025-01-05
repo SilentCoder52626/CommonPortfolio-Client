@@ -27,6 +27,13 @@ const router = createRouter({
 
     },
     {
+      path: '/forget-password',
+      name: 'ForgetPassword',
+      component: () => import('../views/ForgetPasswordView.vue'),
+      meta: { layout: 'empty' },
+
+    },
+    {
       path: '/about',
       name: 'about',
       component: () => import('../views/AboutView.vue'),
@@ -43,13 +50,12 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  const publicPages = ["/login", "/register"];
+  const publicPages = ["/login", "/register","/forget-password"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = authStore.isLoggedIn;
 
   if (loggedIn) {
     try {
-      debugger;
       const decodedToken = jwtDecode(authStore.jwt);
       const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
 

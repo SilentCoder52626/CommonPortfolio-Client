@@ -52,10 +52,10 @@
           </div>
 
           <div>
-            <a
+            <router-link
               class="block text-sm text-indigo-700 fontme hover:underline"
-              href="#"
-            >Forgot your password?</a>
+              to="/forget-password"
+            >Forgot your password?</router-link>
           </div>
         </div>
 
@@ -155,29 +155,4 @@ const checkValidation = () => {
 </script>
 
 <style scoped>
-html,
-body {
-  height: 100%;
-}
-
-.form-signin {
-  max-width: 330px;
-  padding: 1rem;
-}
-
-.form-signin .form-floating:focus-within {
-  z-index: 2;
-}
-
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
 </style>
