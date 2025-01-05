@@ -54,22 +54,15 @@ const ResetPassword = async () => {
 
       <div v-if="config.IsEmailSent">
         <p class="mt-4 text-lg text-center text-green-900 ">
-            Password reset successfully. Please check your email.
-            <router-link to="/login" class="text-indigo-600 decoration-2 hover:underline font-medium">
-              Login here
-            </router-link>
-          </p>
+          Password reset successfully. Please check your email.
+          <router-link to="/login" class="text-indigo-600 decoration-2 hover:underline font-medium">
+            Login here
+          </router-link>
+        </p>
       </div>
       <div v-else>
         <div class="text-center">
           <h1 class="block text-lg bg-black-400 mt-2">Forgot password?</h1>
-
-          <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Remember your password?
-            <router-link to="/login" class="text-indigo-600 decoration-2 hover:underline font-medium">
-              Login here
-            </router-link>
-          </p>
         </div>
         <div class="mt-4">
 
@@ -93,6 +86,14 @@ const ResetPassword = async () => {
                   class="w-full px-4 py-2 text-sm text-center text-white bg-indigo-600 rounded-md focus:outline-none hover:bg-indigo-500">
                   Reset Password
                 </button>
+              </div>
+              <div class="text-center">
+                <p class="mt-3 text-sm text-gray-600 dark:text-gray-400">
+                  Remember your password?
+                  <router-link to="/login" class="text-indigo-600 decoration-2 hover:underline font-medium">
+                    Login here
+                  </router-link>
+                </p>
               </div>
             </div>
           </form>
