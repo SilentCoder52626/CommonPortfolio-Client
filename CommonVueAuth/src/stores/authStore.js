@@ -26,5 +26,7 @@ export const useAuthStore = defineStore('auth', {
   },
   getters: {
     isLoggedIn: (state) => !!state.jwt,
+    isAdmin : (state) => state.role === "Admin",
   },
+  persist: true, 
 });

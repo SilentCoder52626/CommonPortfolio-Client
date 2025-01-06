@@ -39,6 +39,11 @@ const router = createRouter({
       component: () => import('../views/AboutView.vue'),
     },
     {
+      path: '/users',
+      name: 'users',
+      component: () => import('../views/UserView.vue'),
+    },
+    {
       path: '/settings',
       name: 'settings',
       component: () => import('../views/SettingView.vue'),
@@ -50,10 +55,10 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
 
-  const publicPages = ["/login", "/register","/forget-password"];
+  const publicPages = ["/login", "/register", "/forget-password"];
+  const adminPages = ["/users"];
   const authRequired = !publicPages.includes(to.path);
   const loggedIn = authStore.isLoggedIn;
-
   if (loggedIn) {
     try {
       const decodedToken = jwtDecode(authStore.jwt);
@@ -78,7 +83,14 @@ router.beforeEach((to, from, next) => {
   } else if (to.path === "/login") {
     authStore.clearAuthDetails();
     next();
-  } else {
+  } else if (adminPages.includes(to.path)) {
+    if (authStore.role === "Admin") {
+      next();
+    } else {
+      next("/");
+    }
+  }
+  else {
     next();
   }
 });
