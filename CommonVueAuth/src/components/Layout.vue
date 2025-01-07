@@ -15,10 +15,9 @@ const authStore = useAuthStore();
     <div class="flex-1 flex flex-col overflow-hidden">
       <Header />
 
-      <main class="flex-1 overflow-x-hidden overflow-y-auto" id="main-content">
-        <div class="px-5 py-4">
+      <main class="flex-1 overflow-x-hidden overflow-y-auto px-5 py-4" id="main-content">
+        
           <slot />
-        </div>
       </main>
       <Footer/>
 
