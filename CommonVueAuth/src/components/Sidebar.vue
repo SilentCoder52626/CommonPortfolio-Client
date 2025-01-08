@@ -54,6 +54,12 @@ const hideSidebar = () => {
           <span class="mx-4">Users</span>
         </router-link>
 
+        <router-link  class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
+          :class="[$route.name === 'personal details' ? activeClass : inactiveClass]" to="/personal-details" :onClick="hideSidebar">
+          <fa icon="user"/>
+          <span class="mx-4">Personal Details</span>
+        </router-link>
+
         <router-link class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
           :class="[$route.name === 'about' ? activeClass : inactiveClass]" to="/about" :onClick="hideSidebar">
           <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
