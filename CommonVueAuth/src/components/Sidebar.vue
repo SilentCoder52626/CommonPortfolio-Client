@@ -5,7 +5,6 @@ import { useAuthStore } from '../stores/authStore';
 
 const { isOpen } = useSidebar()
 const authStore = useAuthStore();
-console.log(authStore.role);
 const activeClass = ref(
   'bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100',
 )
