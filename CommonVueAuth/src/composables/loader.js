@@ -6,6 +6,7 @@ const $loader = useLoading(
     color: '#4F46E5',
     height: 40,
     width: 40,
+    zIndex: 9999,
   }, 
 );
 
@@ -34,9 +35,9 @@ const BlockWindow = (container,slots) => {
 
 const UnBlockWindow = () => {
   if (activeLoader) {
-    if (htmlContainer && htmlContainer.classList) {
-      htmlContainer.classList.remove('relative');
-    }
+    // if (htmlContainer && htmlContainer.classList) {
+    //   htmlContainer.classList.remove('relative');
+    // }
     activeLoader.hide();
     activeLoader = null;
     htmlContainer = null;

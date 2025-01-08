@@ -11,10 +11,13 @@ const activeClass = ref(
 const inactiveClass = ref(
   'border-gray-900 text-gray-500 hover:bg-gray-600 hover:bg-opacity-25 hover:text-gray-100',
 )
+const hideSidebar = () => {
+  isOpen.value = false;
+}
 </script>
 
 <template>
-  <div class="flex">
+  <div class="flex " style="z-index: 999999;">
     <!-- Backdrop -->
     <div :class="isOpen ? 'block' : 'hidden'"
       class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden" @click="isOpen = false" />
@@ -40,19 +43,19 @@ const inactiveClass = ref(
 
       <nav class="mt-10">
         <router-link class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
-          :class="[$route.name === 'dashboard' ? activeClass : inactiveClass]" to="/">
+          :class="[$route.name === 'dashboard' ? activeClass : inactiveClass]" to="/" :onClick="hideSidebar">
          <fa icon="chart-pie"/>
           <span class="mx-4">Dashboard</span>
         </router-link>
 
         <router-link v-if="authStore.isAdmin" class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
-          :class="[$route.name === 'users' ? activeClass : inactiveClass]" to="/users">
+          :class="[$route.name === 'users' ? activeClass : inactiveClass]" to="/users" :onClick="hideSidebar">
           <fa icon="users"/>
           <span class="mx-4">Users</span>
         </router-link>
 
         <router-link class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
-          :class="[$route.name === 'about' ? activeClass : inactiveClass]" to="/about">
+          :class="[$route.name === 'about' ? activeClass : inactiveClass]" to="/about" :onClick="hideSidebar">
           <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path
               d="M5 3C3.89543 3 3 3.89543 3 5V7C3 8.10457 3.89543 9 5 9H7C8.10457 9 9 8.10457 9 7V5C9 3.89543 8.10457 3 7 3H5Z"

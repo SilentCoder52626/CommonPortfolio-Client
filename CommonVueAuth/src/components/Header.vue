@@ -74,10 +74,10 @@ const Logout = async () => {
           leave-to-class="scale-95 opacity-0"
         >
           <div v-show="dropdownOpen" class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl" >
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white" >Profile</a>
-            <RouterLink to="/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"> Settings </RouterLink>
+            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white" :onclick="() => {dropdownOpen = false}">Profile</a>
+            <RouterLink to="/settings" class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white" :onclick="() => {dropdownOpen = false}"> Settings </RouterLink>
 
-            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white" @click="Logout" > Log out </a>
+            <a class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"  @click="Logout" > Log out </a>
           </div>
         </transition>
       </div>
