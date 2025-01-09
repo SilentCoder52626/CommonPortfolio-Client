@@ -1,7 +1,7 @@
 <template>
-    <div class="rounded overflow-x-hidden shadow-lg p-3">
+    <div class="rounded overflow-x-hidden shadow-lg p-3" ref="PersonalDetailsForm">
 
-        <form @submit.prevent="submit" ref="PersonalDetailsForm">
+        <form @submit.prevent="submit" >
 
             <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
                 <div class="position">
@@ -36,17 +36,6 @@
                             placeholder="Short and sweet description"> </textarea>
                     </div>
                 </div>
-                <div class="banner">
-                    <div class="w-full">
-                        <label class="text-base text-gray-500 font-semibold mb-2 block">Banner Image</label>
-                        <input type="file" @change="handleBannerFileUpload"
-                            class="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded" />
-                        <p class="text-xs text-gray-400 mt-2">PNG and JPG are Allowed.</p>
-                    </div>
-                    <div v-if="imagePre.bannerImage">
-                        <img :src="imagePre.bannerImage" alt="Banner Image" class="h-32 rounded-lg mt-4" />
-                    </div>
-                </div>
                 <div class="profile">
                     <div class="w-full">
                         <label class="text-base text-gray-500 font-semibold mb-2 block">Profile Picture</label>
@@ -58,6 +47,18 @@
                         <img :src="imagePre.profilePicture" alt="Profile Image" class="h-32 rounded-lg mt-4" />
                     </div>
                 </div>
+                <div class="banner">
+                    <div class="w-full">
+                        <label class="text-base text-gray-500 font-semibold mb-2 block">Banner Image</label>
+                        <input type="file" @change="handleBannerFileUpload"
+                            class="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded" />
+                        <p class="text-xs text-gray-400 mt-2">PNG and JPG are Allowed.</p>
+                    </div>
+                    <div v-if="imagePre.bannerImage">
+                        <img :src="imagePre.bannerImage" alt="Banner Image" class="h-32 rounded-lg mt-4" />
+                    </div>
+                </div>
+                
 
 
             </div>
@@ -102,7 +103,7 @@ onMounted(async () => {
 
     var response = await axios.get("/api/account-details");
     if (response && response.status === 200) {
-        const responseData = response.data[0];
+        const responseData = response.data;
 
         data.bannerImage = responseData.bannerImage;
         data.profilePicture = responseData.profilePicture;
@@ -110,7 +111,9 @@ onMounted(async () => {
         data.subName = responseData.subName;
         data.shortDescription = responseData.shortDescription;
         data.detailedDescription = responseData.detailedDescription;
-
+        
+        imagePre.bannerImage = responseData.bannerPictureLink;
+        imagePre.profilePicture = responseData.profilePictureLink;
         loader.UnBlockWindow();
     } else {
         loader.UnBlockWindow();
@@ -131,7 +134,7 @@ const submit = async () => {
     formData.append('shortDescription', data.shortDescription);
     formData.append('detailedDescription', data.detailedDescription);
 
-    var response = await axios.post("/api/account-details/create", formData, {
+    var response = await axios.post("/api/account-details/addorupdate", formData, {
         headers: {
             'Content-Type': 'multipart/form-data'
         }
@@ -170,7 +173,9 @@ function handleBannerFileUpload(event) {
         data.bannerImage = file;
 
     } else {
-        alert('Please upload a valid PNG or JPG image.');
+        data.bannerImage = null;
+        imagePre.bannerImage = null;
+        $toast.info('Please upload a valid PNG or JPG image.', 'Info');
     }
 }
 function handleProfileFileUpload(event) {
@@ -183,7 +188,9 @@ function handleProfileFileUpload(event) {
         reader.readAsDataURL(file);
         data.profilePicture = file;
     } else {
-        alert('Please upload a valid PNG or JPG image.');
+        data.profilePicture = null;
+        imagePre.profilePicture = null;
+        $toast.info('Please upload a valid PNG or JPG image.', 'Info');
     }
 }
 </script>
