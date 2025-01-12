@@ -84,7 +84,7 @@ const submit = async () => {
     return;
   }
   var response = await axios.post("auth/register", JSON.stringify(data));
-  if (response.status === 200) {
+  if (response && response.status === 200) {
     $toast.success("Successfyully registered.");
     loader.UnBlockWindow();
     await router.push("/login");

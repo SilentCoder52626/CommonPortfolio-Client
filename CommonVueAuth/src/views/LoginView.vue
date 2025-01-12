@@ -95,7 +95,7 @@ const login =  async () =>{
     if(checkValidation()){
         const response = await axios.post("/auth/login",data);
         
-        if (response.status === 200) {
+        if (response && response.status === 200) {
             const authResponse = await response.data;
             
             authStore.setAuthDetails({
