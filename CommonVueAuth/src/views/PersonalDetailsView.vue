@@ -2,7 +2,7 @@
     <div class="rounded overflow-x-hidden shadow-lg p-3">
         <div class="border-b-2 border-indigo-500 pb-3 flex justify-between items-center">
             <h4 class="text-xl font-medium text-gray-700 capitalize mb-0">
-                <fa icon="fa fa-user" /> Personal Details
+                <fa icon="fa-user" /> Personal Details
             </h4>
             <button @click="ToogleView" :class="`text-sm text-white ${toogleBtnColor} px-3 py-1 rounded-md`">
                 <fa :icon="toogleIcon" /> {{ EditView }}
@@ -51,8 +51,12 @@
                             class="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded" />
                         <p class="text-xs text-gray-400 mt-2">PNG and JPG are Allowed.</p>
                     </div>
-                    <div v-if="imagePre.profilePicture">
+                    <div v-if="imagePre.profilePicture" class="relative">
                         <img :src="imagePre.profilePicture" alt="Profile Image" class="h-32 rounded-lg mt-4" />
+                        <button v-if="isEditView" @click="deleteProfileImage"
+                            class="absolute top-0 right-2 bg-transparent rounded-full p-1 " title="Remove Image">
+                            <fa icon="fa-times" class="text-red-500 hover:text-red-700" />
+                        </button>
                     </div>
                 </div>
                 <div class="banner">
@@ -62,8 +66,13 @@
                             class="w-full text-gray-400 font-semibold text-sm bg-white border file:cursor-pointer cursor-pointer file:border-0 file:py-3 file:px-4 file:mr-4 file:bg-gray-100 file:hover:bg-gray-200 file:text-gray-500 rounded" />
                         <p class="text-xs text-gray-400 mt-2">PNG and JPG are Allowed.</p>
                     </div>
-                    <div v-if="imagePre.bannerImage">
+
+                    <div v-if="imagePre.bannerImage" class="relative">
                         <img :src="imagePre.bannerImage" alt="Banner Image" class="h-32 rounded-lg mt-4" />
+                        <button v-if="isEditView" @click="deleteBannerImage"
+                            class="absolute top-0 right-2 bg-transparent rounded-full p-1 " title="Remove Image">
+                            <fa icon="fa-times" class="text-red-500 hover:text-red-700" />
+                        </button>
                     </div>
                 </div>
 
@@ -139,7 +148,7 @@ async function fetchData() {
     loader.BlockWindow(PersonalDetailsForm.value, afterSlot());
     imagePre.bannerImage = null;
     imagePre.profilePicture = null;
-    
+
     var response = await axios.get("/api/account-details");
     if (response && response.status === 200) {
         const responseData = response.data;
@@ -163,7 +172,7 @@ const submit = async () => {
     loader.BlockWindow(PersonalDetailsForm.value, afterSlot("Please wait.."));
 
     const formData = new FormData();
-    
+
     formData.append('position', data.position);
     formData.append('subName', data.subName);
     formData.append('profilePicture', data.profilePicture);
@@ -197,7 +206,16 @@ const submit = async () => {
         $toast.error(response.data.reason, 'Error');
     }
 }
-
+function deleteBannerImage() {
+    imagePre.bannerImage = null;
+    data.bannerPicture = null;
+    data.deleteBannerPicture = true;
+}
+function deleteProfileImage() {
+    imagePre.profilePicture = null;
+    data.profilePicture = null;
+    data.deleteProfilePicture = true;
+}
 function handleBannerFileUpload(event) {
     const file = event.target.files[0];
     if (file) {
