@@ -26,7 +26,7 @@ const props = defineProps({
     },
     gridHeight: {
         type: String,
-        default: 'calc(100dvh - 150px)', // Default height
+        default: 'calc(100dvh - 260px)', // Default height
     },
     pagination: {
         type: Boolean,
