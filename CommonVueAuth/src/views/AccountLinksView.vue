@@ -19,7 +19,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <AccountLinks v-for="link in data.links" :key="link.id" :link="link" :linkTypes="linkTypes" v-if="!config.isLoading" :isNewEntry="link.isNewEntry"/>
+                    <AccountLinks v-for="link in data.links" :key="link.id" :link="link" :linkTypes="linkTypes" v-if="!config.isLoading" :isNewEntry="isNewEntry"/>
                     <tr v-if="config.isLoading">
                         <td class="border border-gray-300 px-3 py-2" colspan="3">
                             <div class="flex justify-center items-center">
@@ -61,14 +61,14 @@ const data = reactive({
 });
 
 const linkTypes = ref([])
-
+const isNewEntry = ref(false);
 const AddLink = () => {
-  data.links.push({
+  data.links.unshift({
     id: '',  
     name: '', 
-    url: '',  
-    isNewEntry: true, 
+    url: ''
   });
+    isNewEntry.value = true;
 };
 
 onMounted(async () => {

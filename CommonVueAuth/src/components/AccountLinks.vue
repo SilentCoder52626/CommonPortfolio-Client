@@ -11,17 +11,17 @@
                 </select>
             </template>
             <template v-else>
-                {{ link.name }}
+                {{ rawData.Name }}
             </template>
 
         </td>
         <td class="border border-gray-300 px-3 py-2 w-1/4">
             <template v-if="config.isEditing || config.isNewEntry">
 
-                <input required v-model="data.Link" class="border rounded px-2 py-1 w-full" />
+                <input required v-model="data.Link" class="border rounded px-2 py-1 w-full" placeholder="Enter your profile link." />
             </template>
             <template v-else>
-                <a :href="link.url" target="_blank">{{ link.url }}</a>
+                <a :href="rawData.Link" target="_blank">{{ rawData.Link }}</a>
             </template>
         </td>
 
@@ -76,6 +76,8 @@ const OnCancel = () => {
     if (config.isNewEntry) {
         AccountLinkRow.value.remove();
     }
+    data.Name = rawData.Name;
+    data.Link = rawData.Link;
 }
 const OnDelete = async () => {
     loader.BlockWindow(null, afterSlot("Please wait.."));
@@ -99,6 +101,11 @@ const data = reactive({
     Link: '',
     Id: ''
 });
+const rawData = reactive({
+    Name: '',
+    Link: '',
+    Id: ''
+});
 const OnSave = async () => {
 
     loader.BlockWindow(null, afterSlot("Please wait.."));
@@ -110,9 +117,7 @@ const OnSave = async () => {
     if (data.Id) {
         await UpdateLink();
     } else {
-        console.log("Before SaveLink: isNewEntry =", config.isNewEntry);
         await SaveLink();
-        console.log("After SaveLink: isNewEntry =", config.isNewEntry);
 
     }
 
@@ -129,15 +134,14 @@ async function SaveLink() {
 
         data.Id = response.data.id;
 
-        props.link.name = data.Name;
-        props.link.url = data.Link;
-        props.link.id = data.Id;
-
         loader.UnBlockWindow();
 
         config.isEditing = false;
         config.isNewEntry = false;
 
+        rawData.Name = data.Name;
+        rawData.Link = data.Link;
+        rawData.Id = data.Id;
     } else {
         loader.UnBlockWindow();
         console.error(response);
@@ -155,8 +159,9 @@ async function UpdateLink() {
     if (response && response.status === 200) {
         $toast.success("Account Links updated successfully.");
 
-        props.link.name = data.Name;
-        props.link.url = data.Link;
+        
+        rawData.Name = data.Name;
+        rawData.Link = data.Link;
 
         loader.UnBlockWindow();
         config.isEditing = false;
@@ -172,6 +177,10 @@ onMounted(() => {
     data.Name = props.link.name;
     data.Link = props.link.url;
     data.Id = props.link.id;
+
+    rawData.Name = props.link.name;
+    rawData.Link = props.link.url;
+    rawData.Id = props.link.id;
 
     config.isNewEntry = props.isNewEntry;
 });
