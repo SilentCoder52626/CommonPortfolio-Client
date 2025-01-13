@@ -8,6 +8,8 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 import { fab } from '@fortawesome/free-brands-svg-icons';
 import { far } from '@fortawesome/free-regular-svg-icons'; //optimize this to only import the icons you need
 
+import { createModal } from '@kolirt/vue-modal'
+
 import { AgGridVue } from 'ag-grid-vue3';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
@@ -25,9 +27,7 @@ ModuleRegistry.registerModules([AllCommunityModule]);
 //     headerColumnResizeHandleColor: "rgb(126, 46, 132)",
 //   });
 
-provideGlobalGridOptions({ theme: "legacy"});
-
-
+provideGlobalGridOptions({ theme: "legacy" });
 
 import App from './App.vue';
 import router from './router';
@@ -46,6 +46,21 @@ library.add(fab);
 library.add(far);
 
 
+var model = createModal({
+    transitionTime: 200,
+    animationType: 'slideDown',
+    modalStyle: {
+        padding: '5rem 2rem',
+        align: 'center',
+        'z-index': 201
+    },
+    overlayStyle: {
+        'background-color': 'rgba(0, 0, 0, .5)',
+        'backdrop-filter': 'blur(5px)',
+        'z-index': 200
+    }
+});
+
 const app = createApp(App)
 
 const pinia = createPinia()
@@ -55,9 +70,10 @@ app.component('EmptyLayout', EmptyLayout)
 
 app.use(pinia);
 app.use(router)
-app.use(VueAxios,axios)
+app.use(VueAxios, axios)
 
 app.use(toastrPlugin);
 app.component('fa', FontAwesomeIcon);
 app.component('AgGridVue', AgGridVue);
+app.use(model);
 app.mount('#app')

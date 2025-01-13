@@ -14,5 +14,8 @@ const layout = computed(
 <template>
   <component :is="layout">
     <router-view />
+    
+    <ModalTarget group="default" />
+
   </component>
 </template>
