@@ -4,7 +4,7 @@
             <h4 class="text-xl font-medium text-gray-700 capitalize mb-0">
                 <fa icon="graduation-cap" /> Educations
             </h4>
-            <button class="text-sm text-white bg-green-500 px-3 py-1 rounded-md">
+            <button @click="OnAdd" class="text-sm text-white bg-green-500 px-3 py-1 rounded-md">
                 <fa icon="plus" /> Add
             </button>
 
@@ -42,11 +42,14 @@
     </div>
 </template>
 <script setup>
+import { openModal } from '@kolirt/vue-modal'
 
 import { reactive, ref, onMounted } from 'vue';
 import axios from '../plugins/axios';
 import { useToast } from '../composables/useToast';
 import EducationDetails from '../components/EducationDetails.vue';
+
+import EducationAddEditModel from '../components/EducationAddEditModel.vue';
 
 const $toast = useToast();
 
@@ -62,6 +65,12 @@ const data = reactive({
     edus: []
 });
 
+const OnAdd = () => {
+    openModal(EducationAddEditModel, { title: 'Add' }
+    ).then((data) => {
+        $toast.success(JSON.stringify(data), 'success');
+    })
+}
 
 onMounted(async () => {
     try {

@@ -15,14 +15,13 @@
         </td>
 
         <td class="border border-gray-300 px-3 py-2 w-1/5">
-            <input type="hidden" class="edu-id" v-model="props.edu.id" /> 
-                <button @click="OnEdit" class="text-sm text-white bg-blue-500 px-3 py-1 rounded-md" title="Edit">
-                    <fa icon="edit" /> Edit
-                </button>
-                <button @click="OnDelete" class="text-sm text-white bg-red-500 px-3 py-1 rounded-md ml-2"
-                    title="Delete">
-                    <fa icon="trash" /> Delete
-                </button>
+            <input type="hidden" class="edu-id" v-model="props.edu.id" />
+            <button @click="OnEdit" class="text-sm text-white bg-blue-500 px-3 py-1 rounded-md" title="Edit">
+                <fa icon="edit" /> Edit
+            </button>
+            <button @click="OnDelete" class="text-sm text-white bg-red-500 px-3 py-1 rounded-md ml-2" title="Delete">
+                <fa icon="trash" /> Delete
+            </button>
 
         </td>
     </tr>
@@ -30,20 +29,25 @@
 
 <script setup>
 
+import { openModal } from '@kolirt/vue-modal'
 import { defineProps, ref } from 'vue';
 
 import axios from '../plugins/axios';
 import loader from '../composables/loader';
 import { useToast } from '../composables/useToast';
 import { afterSlot } from '../composables/afterSlot';
+import EducationAddEditModel from './EducationAddEditModel.vue';
 
 const $toast = useToast();
 
 const EducationDetailRow = ref(null);
 
 const OnEdit = () => {
-    //show  popup edit mode
-    console.log("Edit clicked");
+
+    openModal(EducationAddEditModel, { title: 'Edit' }
+    ).then((data) => {
+        $toast.success(JSON.stringify(data), 'success');
+    })
 }
 
 const OnDelete = async () => {
@@ -70,7 +74,7 @@ const props = defineProps({
     edu: {
         type: Object,
         required: true,
-    }   
+    }
 });
 
 </script>
