@@ -10,7 +10,7 @@
 
         </div>
         <div class="mt-2" ref="EducationTable">
-            <table class="w-full border-collapse table-auto">
+            <table class="w-full border-collapse table-auto ">
                 <thead>
                     <tr>
                         <th class="border border-gray-300 px-3 py-2">Title</th>
@@ -47,6 +47,7 @@ import { openModal } from '@kolirt/vue-modal'
 import { reactive, ref, onMounted } from 'vue';
 import axios from '../plugins/axios';
 import { useToast } from '../composables/useToast';
+import loader from '../composables/loader';
 import EducationDetails from '../components/EducationDetails.vue';
 
 import EducationAddEditModel from '../components/EducationAddEditModel.vue';
@@ -66,10 +67,14 @@ const data = reactive({
 });
 
 const OnAdd = () => {
-    openModal(EducationAddEditModel, { title: 'Add' }
-    ).then((data) => {
-        $toast.success(JSON.stringify(data), 'success');
-    })
+    openModal(EducationAddEditModel, { title: 'Add Education Details' }
+    ).then((response) => {
+        data.edus.push(response);
+        $toast.success("Education detail updated successfully.");
+        loader.UnBlockWindow();
+
+    }).catch((error) => {
+    });
 }
 
 onMounted(async () => {

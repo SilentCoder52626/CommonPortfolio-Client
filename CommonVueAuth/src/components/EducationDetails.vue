@@ -15,12 +15,14 @@
         </td>
 
         <td class="border border-gray-300 px-3 py-2 w-1/5">
-            <input type="hidden" class="edu-id" v-model="props.edu.id" />
-            <button @click="OnEdit" class="text-sm text-white bg-blue-500 px-3 py-1 rounded-md" title="Edit">
-                <fa icon="edit" /> Edit
+            <button @click="OnView" class="text-sm text-white bg-orange-500 px-3 py-1 rounded-md" title="View Details">
+                <fa icon="eye" />
+            </button>
+            <button @click="OnEdit" class="text-sm text-white bg-blue-500 px-3 py-1 rounded-md ml-2" title="Edit">
+                <fa icon="edit" />
             </button>
             <button @click="OnDelete" class="text-sm text-white bg-red-500 px-3 py-1 rounded-md ml-2" title="Delete">
-                <fa icon="trash" /> Delete
+                <fa icon="trash" />
             </button>
 
         </td>
@@ -41,13 +43,26 @@ import EducationAddEditModel from './EducationAddEditModel.vue';
 const $toast = useToast();
 
 const EducationDetailRow = ref(null);
-
+const OnView = () => {
+    openModal(EducationAddEditModel, { title: 'View Education Details', data: props.edu, isEditModel : false }
+    ).catch((error) => {
+    });
+}
 const OnEdit = () => {
 
-    openModal(EducationAddEditModel, { title: 'Edit' }
+    openModal(EducationAddEditModel, { title: 'Edit Education Details', data: props.edu, isEditModel : true }
     ).then((data) => {
-        $toast.success(JSON.stringify(data), 'success');
-    })
+        props.edu.title = data.title;
+        props.edu.university = data.university;
+        props.edu.address = data.address;
+        props.edu.startYear = data.startYear;
+        props.edu.endYear = data.endYear;
+        props.edu.description = data.description;
+        
+        $toast.success("Education detail updated successfully.");
+        loader.UnBlockWindow();
+    }).catch((error) => {
+    });
 }
 
 const OnDelete = async () => {
