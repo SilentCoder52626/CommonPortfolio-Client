@@ -23,14 +23,14 @@
                     <tr v-if="config.isLoading">
                         <td class="border border-gray-300 px-3 py-2" colspan="3">
                             <div class="flex justify-center items-center">
-                                <fa icon="spinner" />  Loading Account Links...
+                                <fa icon="spinner" /> &nbsp; Loading Account Links...
                             </div>
                         </td>
                     </tr>
                     <tr v-if="config.noDataFound">
                         <td class="border border-gray-300 px-3 py-2" colspan="3">
                             <div class="flex justify-center items-center">
-                                <fa icon="exclamation-triangle" />  No Account Links Found.
+                                <fa icon="exclamation-triangle" /> &nbsp; No Account Links Found.
                             </div>
                         </td>
                     </tr>
@@ -92,7 +92,6 @@ onMounted(async () => {
 
     } finally {
         config.isLoading = false;
-        config.noDataFound = false;
     }
 
     
