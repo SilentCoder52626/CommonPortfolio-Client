@@ -71,7 +71,11 @@ const hideSidebar = () => {
           <fa icon="graduation-cap"/>
           <span class="mx-4">Educations</span>
         </router-link>
-
+        <router-link  class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
+          :class="[$route.name === 'skillTypes' ? activeClass : inactiveClass]" to="/skill-types" :onClick="hideSidebar">
+          <fa icon="list"/>
+          <span class="mx-4">Skill Types</span>
+        </router-link>
         <router-link class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
           :class="[$route.name === 'about' ? activeClass : inactiveClass]" to="/about" :onClick="hideSidebar">
           <svg class="w-5 h-5" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
