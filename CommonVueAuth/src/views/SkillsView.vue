@@ -1,0 +1,116 @@
+<template>
+    <div class="rounded overflow-x-hidden shadow-lg p-3">
+        <div class="border-b-2 border-indigo-500 pb-3 flex justify-between items-center">
+            <h4 class="text-xl font-medium text-gray-700 capitalize mb-0">
+                <fa icon="square-check" /> Skils
+            </h4>
+            <button @click="AddSkill" :class="`text-sm text-white bg-green-500 px-3 py-1 rounded-md`">
+                <fa icon="plus" /> Add
+            </button>
+
+        </div>
+        <div class="mt-2" ref="SkilsTable">
+            <table class="w-full border-collapse table-auto">
+                <thead>
+                    <tr>
+                        <th class="border border-gray-300 px-3 py-2">Title</th>
+                        <th class="border border-gray-300 px-3 py-2">Type</th>
+                        <th class="border border-gray-300 px-3 py-2">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <Skils v-for="skill in data.skills" :key="skill.id" :skill="skill" :skillTypes="skillTypes" v-if="!config.isLoading" :isNewEntry="isNewEntry"/>
+                    <tr v-if="config.isLoading">
+                        <td class="border border-gray-300 px-3 py-2" colspan="3">
+                            <div class="flex justify-center items-center">
+                                <fa icon="spinner" /> &nbsp; Loading Skills...
+                            </div>
+                        </td>
+                    </tr>
+                    <tr v-if="config.noDataFound">
+                        <td class="border border-gray-300 px-3 py-2" colspan="3">
+                            <div class="flex justify-center items-center">
+                                <fa icon="exclamation-triangle" /> &nbsp; No Skills Found.
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</template>
+<script setup>
+
+import { reactive, ref, onMounted } from 'vue';
+import axios from '../plugins/axios';
+import { useToast } from '../composables/useToast';
+import Skils from '../components/Skills.vue';
+
+const $toast = useToast();
+
+const SkilsTable = ref(null);
+
+
+const config = reactive({
+    isLoading: false,
+    noDataFound : false
+});
+
+const data = reactive({
+    skills: []
+});
+
+const skillTypes = ref([])
+const isNewEntry = ref(false);
+const AddSkill = () => {
+  data.skills.unshift({
+    id: '',  
+    title: '', 
+    skillTypeId: ''
+  });
+    isNewEntry.value = true;
+};
+
+onMounted(async () => {
+
+    LoadSkillTypes();
+
+    try {
+        config.isLoading = true;
+        const response = await axios.get("/api/skill");
+        if (response && response.status === 200) {
+            data.skills = response.data;
+            if (data.skills.length === 0) {
+                config.noDataFound = true;
+            }
+        } else {
+            $toast.error(response.data.reason, "Error");
+        }
+    } catch (error) {
+        $toast.error("Failed to load skills.", "Error");
+        config.noDataFound = true;
+
+    } finally {
+        config.isLoading = false;
+    }
+
+    
+});
+
+async function LoadSkillTypes() {
+    try{
+        const response = await axios.get("/api/skill-type");
+        if(response && response.status === 200){
+            skillTypes.value = response.data;
+        }else{
+            $toast.error(response.data.reason, "Error");
+        }
+    }catch(error){
+        $toast.error("Failed to load skill types.", "Error");
+    }
+    
+}
+
+
+</script>
+<style scoped></style>
