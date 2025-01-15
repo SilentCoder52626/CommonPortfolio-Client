@@ -33,7 +33,7 @@
                 </button>
                 <button @click="OnCancel" class="text-sm text-white bg-red-500 px-3 py-1 rounded-md ml-2"
                     title="Cancel">
-                    <fa icon="times" /> Cancel
+                    <fa icon="times" />
                 </button>
 
             </template>
@@ -43,7 +43,7 @@
                 </button>
                 <button @click="OnDelete" class="text-sm text-white bg-red-500 px-3 py-1 rounded-md ml-2"
                     title="Delete">
-                    <fa icon="trash" /> Delete
+                    <fa icon="trash" />
                 </button>
             </template>
 

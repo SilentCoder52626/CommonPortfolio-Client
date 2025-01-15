@@ -17,7 +17,7 @@ const hideSidebar = () => {
 </script>
 
 <template>
-  <div class="flex " style="z-index: 999999;">
+  <div class="flex " style="z-index: 199;">
     <!-- Backdrop -->
     <div :class="isOpen ? 'block' : 'hidden'"
       class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden" @click="isOpen = false" />

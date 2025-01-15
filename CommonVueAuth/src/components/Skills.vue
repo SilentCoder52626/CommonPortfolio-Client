@@ -42,11 +42,11 @@
             </template>
             <template v-else>
                 <button @click="OnEdit" :class="`text-sm text-white bg-blue-500 px-3 py-1 rounded-md`" title="Edit">
-                    <fa icon="edit" /> Edit
+                    <fa icon="edit" />
                 </button>
                 <button @click="OnDelete" class="text-sm text-white bg-red-500 px-3 py-1 rounded-md ml-2"
                     title="Delete">
-                    <fa icon="trash" /> Delete
+                    <fa icon="trash" />
                 </button>
             </template>
 
