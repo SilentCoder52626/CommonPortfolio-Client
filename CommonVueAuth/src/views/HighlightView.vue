@@ -69,6 +69,7 @@ const OnAdd = () => {
         data.highlights.push(response);
         $toast.success("Highlight detail updated successfully.");
         loader.UnBlockWindow();
+        config.noDataFound = false;
 
     }).catch((error) => {
     });

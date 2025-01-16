@@ -1,9 +1,17 @@
 <template>
-    <tr class="w-full" ref="HighlightDetailRow">
-        <td class="border border-gray-300 px-3 py-2 3/5">
-            {{ props.highlight.title }}
+    <tr class="w-full" ref="ExperienceDetailRow">
+        <td class="border border-gray-300 px-3 py-2 1/4">
+            {{ props.experience.title }}
         </td>
-        <td class="border border-gray-300 px-3 py-2 w-2/5">
+        <td class="border border-gray-300 px-3 py-2  w-1/4">
+            {{ props.experience.organization }}
+        </td>
+        <td class="border border-gray-300 px-3 py-2 w-1/4">
+            {{ props.experience.duration }}
+        </td>
+
+
+        <td class="border border-gray-300 px-3 py-2 w-1/4">
             <button @click="OnView" class="text-sm text-white bg-orange-500 px-3 py-1 rounded-md" title="View Details">
                 <fa icon="eye" />
             </button>
@@ -27,25 +35,26 @@ import axios from '../plugins/axios';
 import loader from '../composables/loader';
 import { useToast } from '../composables/useToast';
 import { afterSlot } from '../composables/afterSlot';
-import HighlightAddEditModel from './HighlightAddEditModel.vue';
+import ExperienceAddEditModel from './ExperienceAddEditModel.vue';
 
 const $toast = useToast();
 
-const HighlightDetailRow = ref(null);
+const ExperienceDetailRow = ref(null);
 const OnView = () => {
-    openModal(HighlightAddEditModel, { title: 'View Highlight Details', data: props.highlight, isEditModel : false }
+    openModal(ExperienceAddEditModel, { title: 'View Experience Details', data: props.experience, isEditModel : false }
     ).catch((error) => {
     });
 }
 const OnEdit = () => {
 
-    openModal(HighlightAddEditModel, { title: 'Edit Highlight Details', data: props.highlight, isEditModel : true }
+    openModal(ExperienceAddEditModel, { title: 'Edit Experience Details', data: props.experience, isEditModel : true }
     ).then((data) => {
-        props.highlight.title = data.title;
-       
-        props.highlight.description = data.description;
+        props.experience.title = data.title;
+        props.experience.organization = data.organization;
+        props.experience.duration = data.duration;
+        props.experience.description = data.description;
         
-        $toast.success("Highlight Detail updated successfully.");
+        $toast.success("Experience detail updated successfully.");
         loader.UnBlockWindow();
     }).catch((error) => {
     });
@@ -53,15 +62,15 @@ const OnEdit = () => {
 
 const OnDelete = async () => {
     loader.BlockWindow(null, afterSlot("Please wait.."));
-    confirm("Are you sure you want to delete this Highlight Detail?") ? DeleteHighlight() : loader.UnBlockWindow();
+    confirm("Are you sure you want to delete this experience detail?") ? DeleteExperience() : loader.UnBlockWindow();
 
 }
-async function DeleteHighlight() {
-    var response = await axios.delete("/api/highlight/delete/" + props.highlight.id);
+async function DeleteExperience() {
+    var response = await axios.delete("/api/experience/delete/" + props.experience.id);
     if (response && response.status === 200) {
-        $toast.success("Highlight Detail deleted successfully.");
+        $toast.success("Experience detail deleted successfully.");
         loader.UnBlockWindow();
-        HighlightDetailRow.value.remove();
+        ExperienceDetailRow.value.remove();
     } else {
         loader.UnBlockWindow();
         console.error(response);
@@ -72,7 +81,7 @@ async function DeleteHighlight() {
 
 
 const props = defineProps({
-    highlight: {
+    experience: {
         type: Object,
         required: true,
     }
