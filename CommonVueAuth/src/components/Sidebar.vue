@@ -61,6 +61,12 @@ const hideSidebar = () => {
         </router-link>
 
         <router-link  class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
+          :class="[$route.name === 'highlights' ? activeClass : inactiveClass]" to="/highlights" :onClick="hideSidebar">
+          <fa icon="bolt"/>
+          <span class="mx-4">Highlights</span>
+        </router-link>
+
+        <router-link  class="flex items-center px-6 py-2 mt-1 duration-200 border-l-4"
           :class="[$route.name === 'accountLinks' ? activeClass : inactiveClass]" to="/account-links" :onClick="hideSidebar">
           <fa icon="link"/>
           <span class="mx-4">Account Links</span>
