@@ -70,8 +70,8 @@
         </DialogPanel>
       </Dialog>
     </header>
-
-    <div class="relative isolate mx-auto xl:container">
+    <div class=" divide-y" v-if="!config.IsHomeMenuSelected"></div>
+    <div class="relative isolate">
       <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true">
         <div
@@ -80,7 +80,8 @@
       </div>
 
       <Home v-if="config.IsHomeMenuSelected" />
-
+      <About v-if="config.IsAboutMenuSelected" />
+      <Project v-if="config.IsProjectMenuSelected" />
       <div
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         aria-hidden="true">
@@ -96,6 +97,8 @@
 import { defineProps, ref, reactive } from 'vue';
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import Home from '../components/portfolio/Home.vue';
+import About from '../components/portfolio/About.vue';
+import Project from '../components/portfolio/Project.vue';
 
 const config = reactive({
   IsHomeMenuSelected: true,
