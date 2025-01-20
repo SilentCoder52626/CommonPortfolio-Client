@@ -3,14 +3,14 @@
 
         <div class="w-full mt-32 md:mt-32 md:w-1/2 ">
             <div class="flex flex-col items-center md:items-start">
-                <h1 class="text-3xl font-bold text-blue-900 tracking-tight md:text-5xl">
+                <h1 class="text-4xl font-bold text-blue-900 tracking-tight md:text-6xl">
                     {{ personalDetails.name }}
                 </h1>
                 <h2
                     class="text-4xl md:text-6xl font-bold text-gray-700 tracking-tight leading-snug ">
                     {{ personalDetails.role }}
                 </h2>
-                <p class="text-md md:text-2xl text-gray-600 -pt-1 md:pt-4 text-left ">
+                <p class="text-md md:text-2xl text-gray-600 -pt-1 md:pt-4 text-center md:text-start ">
                     {{ personalDetails.shortDescription }}
                 </p>
             </div>
