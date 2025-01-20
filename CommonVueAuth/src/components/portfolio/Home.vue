@@ -21,7 +21,7 @@ const hightlightDetails = reactive({
     data: [
         {
             title: 'Full Stack Developer',
-            description: 'A decade long Experienc in both frontend and backend development using modern technologies'
+            description: 'A decade long Experienc in both frontend and backend development using modern technologies.'
         },
         {
             title: 'Problem Solver',

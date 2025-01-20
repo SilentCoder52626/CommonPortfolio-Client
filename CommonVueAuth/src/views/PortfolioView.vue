@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white">
-    <header class="absolute inset-x-0 top-0 z-50 ">
+  <div class="bg-white ">
+    <header class="absolute inset-x-0 top-0 z-50 mx-auto xl:container">
       <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
 
@@ -15,8 +15,16 @@
           </button>
         </div>
         <div class="hidden lg:flex lg:gap-x-8">
-          <a v-for="item in navigation" :key="item.name" :href="item.href"
-            class="text-sm/6 font-semibold text-gray-900">{{ item.name }}</a>
+          <a href="#" @click="OnHomeMenuClick"
+            :class="[config.IsHomeMenuSelected ? activeClass : inactiveClass]">Home</a>
+          <a href="#" @click="OnAboutMenuClick"
+            :class="[config.IsAboutMenuSelected ? activeClass : inactiveClass]">About</a>
+          <a href="#" @click="OnProjectMenuClick"
+            :class="[config.IsProjectMenuSelected ? activeClass : inactiveClass]">Project</a>
+          <a href="#" @click="OnBlogMenuClick"
+            :class="[config.IsBlogMenuSelected ? activeClass : inactiveClass]">Blog</a>
+
+
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
           <fa :icon="['fab', 'github']" class="size-6 mr-3" />
@@ -39,13 +47,16 @@
           <div class="mt-6 ">
             <div class="-my-6 ">
               <div class="space-y-2 py-6">
-                <template v-for="(item) in navigation" :key="item.name">
-                  <a :href="item.href"
-                    class="-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold text-gray-900 hover:bg-gray-50">
-                    {{ item.name }}
-                  </a>
-                  <div class="border-b border-gray-500/10"></div>
-                </template>
+                 
+                  <a href="#" @click="OnHomeMenuClick"
+                    :class="[config.IsHomeMenuSelected ? mobileActiveClass : mobileInActiveClass]">Home</a>
+                  <a href="#" @click="OnAboutMenuClick"
+                    :class="[config.IsAboutMenuSelected ? mobileActiveClass : mobileInActiveClass]">About</a>
+                  <a href="#" @click="OnProjectMenuClick"
+                    :class="[config.IsProjectMenuSelected ? mobileActiveClass : mobileInActiveClass]">Project</a>
+                  <a href="#" @click="OnBlogMenuClick"
+                    :class="[config.IsBlogMenuSelected ? mobileActiveClass : mobileInActiveClass]">Blog</a>
+
               </div>
               <div class="py-6 flex justify-center">
                 <fa :icon="['fab', 'github']"
@@ -60,7 +71,7 @@
       </Dialog>
     </header>
 
-    <div class="relative isolate">
+    <div class="relative isolate mx-auto xl:container">
       <div class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
         aria-hidden="true">
         <div
@@ -68,8 +79,8 @@
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
       </div>
 
-      <Home />
-      
+      <Home v-if="config.IsHomeMenuSelected" />
+
       <div
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         aria-hidden="true">
@@ -82,17 +93,58 @@
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue';
+import { defineProps, ref, reactive } from 'vue';
 import { Dialog, DialogPanel } from '@headlessui/vue'
 import Home from '../components/portfolio/Home.vue';
 
+const config = reactive({
+  IsHomeMenuSelected: true,
+  IsAboutMenuSelected: false,
+  IsProjectMenuSelected: false,
+  IsBlogMenuSelected: false,
+})
 
-const navigation = [
-  { name: 'Home', href: '#' },
-  { name: 'About', href: '#' },
-  { name: 'Projects', href: '#' },
-  { name: 'Blog', href: '#' },
-];
+function OnHomeMenuClick() {
+  config.IsHomeMenuSelected = true;
+  config.IsAboutMenuSelected = false;
+  config.IsProjectMenuSelected = false;
+  config.IsBlogMenuSelected = false;
+  mobileMenuOpen.value = false;
+}
+function OnAboutMenuClick() {
+  config.IsHomeMenuSelected = false;
+  config.IsAboutMenuSelected = true;
+  config.IsProjectMenuSelected = false;
+  config.IsBlogMenuSelected = false;
+  mobileMenuOpen.value = false;
+}
+function OnProjectMenuClick() {
+  config.IsHomeMenuSelected = false;
+  config.IsAboutMenuSelected = false;
+  config.IsProjectMenuSelected = true;
+  config.IsBlogMenuSelected = false;
+  mobileMenuOpen.value = false;
+}
+function OnBlogMenuClick() {
+  config.IsHomeMenuSelected = false;
+  config.IsAboutMenuSelected = false;
+  config.IsProjectMenuSelected = false;
+  config.IsBlogMenuSelected = true;
+  mobileMenuOpen.value = false;
+}
+
+const activeClass = ref(
+  'text-sm/6 font-semibold text-indigo-600',
+)
+const inactiveClass = ref(
+  'text-sm/6 font-semibold text-gray-500 hover:text-indigo-600 ',
+)
+const mobileInActiveClass = ref(
+  '-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold text-gray-900 border-b border-gray-500/10 hover:bg-indigo-50 '
+)
+const mobileActiveClass = ref(
+  '-mx-3 block rounded-lg px-3 py-1 text-base/7 font-semibold border-b border-gray-500/10 text-indigo-900 '
+)
 
 const mobileMenuOpen = ref(false)
 
