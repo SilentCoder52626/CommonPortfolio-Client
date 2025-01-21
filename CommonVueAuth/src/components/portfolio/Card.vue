@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-8 flex flex-col items-center justify-center md:items-start md:justify-start">
+    <div class="mt-8 flex flex-col items-center justify-center lg:items-start lg:justify-start">
         <h1 class="text-2xl font-bold mb-4 text-start">My Card</h1>
         <div class="rounded-lg shadow-lg bg-lightGray gap-4  w-4/5 md:w-1/2">
             <div class="py-12 mx-8 flex flex-col justify-center items-center">
@@ -14,12 +14,12 @@
                     <div class="flex flex-row items-center justify-center gap-3 mt-4">
                         <a :href="cardDetails.socialLinks.github" target="_blank">
                             <span>
-                                <fa :icon="['fab', 'github']" class="size-5 text-gray-600 hover:text-black" />
+                                <fa :icon="['fab', 'github']" class="size-5 text-gray-600 mr-3 hover:text-black" />
                             </span>
                         </a>
                         <a :href="cardDetails.socialLinks.twitter" target="_blank">
                             <span>
-                                <fa :icon="['fab', 'twitter']" class="size-5 text-gray-600  hover:text-black" />
+                                <fa :icon="['fab', 'twitter']" class="size-5 text-gray-600 mr-3 hover:text-sky-500" />
                             </span>
                         </a>
                     </div>

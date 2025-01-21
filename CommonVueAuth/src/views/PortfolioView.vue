@@ -4,7 +4,8 @@
       <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
 
-          <span class="text-lg/5 font-semibold text-gray-900">Kaman Khadka</span>
+          <span class="text-lg/5 font-semibold text-gray-900 hover:cursor-pointer hover:text-indigo-500"
+            @click="OnHomeMenuClick">{{ cardDetails.name }}</span>
 
         </div>
         <div class="flex lg:hidden">
@@ -27,9 +28,18 @@
 
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          <fa :icon="['fab', 'github']" class="size-6 mr-3" />
 
-          <fa :icon="['fab', 'linkedin']" class="size-6 mr-3" />
+          <a :href="cardDetails.socialLinks.github" target="_blank">
+            <span>
+              <fa :icon="['fab', 'github']" class="size-6 mr-3 text-gray-600 hover:text-black" />
+            </span>
+          </a>
+          <a :href="cardDetails.socialLinks.twitter" target="_blank">
+            <span>
+              <fa :icon="['fab', 'twitter']" class="size-6 mr-3 text-gray-600  hover:text-sky-500" />
+            </span>
+          </a>
+
         </div>
       </nav>
       <Dialog class="lg:hidden" @close="mobileMenuOpen = false" :open="mobileMenuOpen">
@@ -47,15 +57,15 @@
           <div class="mt-6 ">
             <div class="-my-6 ">
               <div class="space-y-2 py-6">
-                 
-                  <a href="#" @click="OnHomeMenuClick"
-                    :class="[config.IsHomeMenuSelected ? mobileActiveClass : mobileInActiveClass]">Home</a>
-                  <a href="#" @click="OnAboutMenuClick"
-                    :class="[config.IsAboutMenuSelected ? mobileActiveClass : mobileInActiveClass]">About</a>
-                  <a href="#" @click="OnProjectMenuClick"
-                    :class="[config.IsProjectMenuSelected ? mobileActiveClass : mobileInActiveClass]">Project</a>
-                  <a href="#" @click="OnBlogMenuClick"
-                    :class="[config.IsBlogMenuSelected ? mobileActiveClass : mobileInActiveClass]">Blog</a>
+
+                <a href="#" @click="OnHomeMenuClick"
+                  :class="[config.IsHomeMenuSelected ? mobileActiveClass : mobileInActiveClass]">Home</a>
+                <a href="#" @click="OnAboutMenuClick"
+                  :class="[config.IsAboutMenuSelected ? mobileActiveClass : mobileInActiveClass]">About</a>
+                <a href="#" @click="OnProjectMenuClick"
+                  :class="[config.IsProjectMenuSelected ? mobileActiveClass : mobileInActiveClass]">Project</a>
+                <a href="#" @click="OnBlogMenuClick"
+                  :class="[config.IsBlogMenuSelected ? mobileActiveClass : mobileInActiveClass]">Blog</a>
 
               </div>
               <div class="py-6 flex justify-center">
@@ -79,7 +89,7 @@
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
       </div>
 
-      <Home v-if="config.IsHomeMenuSelected" />
+      <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data" :personal-info="personalDetails" />
       <About v-if="config.IsAboutMenuSelected" />
       <Project v-if="config.IsProjectMenuSelected" />
       <Blog v-if="config.IsBlogMenuSelected" />
@@ -101,6 +111,40 @@ import Home from '../components/portfolio/Home.vue';
 import About from '../components/portfolio/About.vue';
 import Project from '../components/portfolio/Project.vue';
 import Blog from '../components/portfolio/Blog.vue';
+
+const personalDetails = reactive({
+    name: 'Kaman Khadka',
+    role: 'Full Stack Developer',
+    shortDescription: 'Passionate about building scalable web applications and solving complex problems',
+    banner: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1736828460/kaman_name_png.png',
+    profile: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1737299508/rr5v6rwkbrz9j9v6tyr0.jpg'
+})
+
+const cardDetails = reactive({
+    name: 'Kaman Khadka',
+    role: 'Full Stack Developer',
+    socialLinks: {
+        github: 'https://github.com/silentcoder52626',
+        twitter: 'https://x.com/common_khadka',
+        linkedin: 'https://www.linkedin.com/in/kaman-khadka-474340140/'
+    }
+})
+const hightlightDetails = reactive({
+    data: [
+        {
+            title: 'Full Stack Developer',
+            description: 'A decade long Experienc in both frontend and backend development using modern technologies.'
+        },
+        {
+            title: 'Problem Solver',
+            description: 'Passionate about solving complex problems and building scalable web applications'
+        },
+        {
+            title: 'Team Player',
+            description: 'A good team player with excellent communication skills and ability to work in a team'
+        }
+    ]
+})
 const config = reactive({
   IsHomeMenuSelected: true,
   IsAboutMenuSelected: false,
@@ -158,4 +202,6 @@ const props = defineProps({
     required: true,
   },
 });
+
+
 </script>
