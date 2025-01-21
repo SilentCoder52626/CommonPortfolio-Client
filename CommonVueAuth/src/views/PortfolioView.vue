@@ -4,7 +4,7 @@
       <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
 
-          <span class="text-lg/5 font-semibold text-gray-900">{{ props.userName }}</span>
+          <span class="text-lg/5 font-semibold text-gray-900">Kaman Khadka</span>
 
         </div>
         <div class="flex lg:hidden">

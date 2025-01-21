@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col-reverse lg:flex-row items-center mx-2.5 lg:mx-72 mb-16  ">
+    <div class="flex flex-col-reverse lg:flex-row items-center mb-16  ">
 
         <div class="w-full mt-16 lg:mt-32 lg:w-1/2 ">
             <div class="flex flex-col items-center lg:items-start">
@@ -10,7 +10,7 @@
                     class="text-4xl lg:text-6xl font-bold text-gray-700 tracking-tight leading-snug ">
                     {{ personalDetails.role }}
                 </h2>
-                <p class="text-md lg:text-2xl text-gray-600 -pt-1 lg:pt-4 text-start lg:text-start ">
+                <p class="text-md lg:text-2xl text-gray-600 -pt-1 lg:pt-4 text-start md:text-start ">
                     {{ personalDetails.shortDescription }}
                 </p>
             </div>

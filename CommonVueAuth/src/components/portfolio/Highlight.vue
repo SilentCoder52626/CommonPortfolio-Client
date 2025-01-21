@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-72">
+  <div class="">
     <div class="grid gap-3 sm:grid-cols-1 md:grid-cols-3">
       <div v-for="(highlight, index) in highlights" :key="index"
         class="px-4 pt-3 bg-lightGray rounded-lg shadow-sm border border-gray-200">

@@ -1,13 +1,13 @@
 <template>
     <div class="mt-16 border-t-2 border-indigo-500">
-        <div class="container mx-auto mt-16">
-            <h2 class="text-start  pb-2 mb-4 border-b-2 border-indigo-100">Projects</h2>
-            <div class="divider">
+        <div class="container mx-auto mt-16 px-4">
+            <h2 class="text-start  pb-2 mb-4 border-b-2 border-indigo-100 font-semibold">Projects</h2>
+            <div class="ml-2.5">
                 <h3 class="text-start">GitHub Projects</h3>
                 <p>Below are my open-source projects from GitHub:</p>
             </div>
             <template v-if="datas.projects.length > 0">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5 mx-2.5">
                     <div v-for="(project, index) in datas.projects" :key="index" class="mb-4 rounded-lg shadow-lg p-4">
                         <h2 class="text-xl font-semibold capitalize"><a :href="project.html_url" target="_blank"> {{ project.name }} </a></h2>
                         <p class="text-gray-600 mb-4">{{ project.description }}</p>

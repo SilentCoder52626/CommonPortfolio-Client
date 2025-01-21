@@ -1,8 +1,11 @@
 <template>
-    <Hero :personalDetails="personalDetails" />
+        <div class="container mx-auto px-4">
+            <Hero :personalDetails="personalDetails" />
     <Highlight :highlights="hightlightDetails.data" />
     <Card :cardDetails="cardDetails" />
 
+    </div>
+   
 
 </template>
 <script setup>

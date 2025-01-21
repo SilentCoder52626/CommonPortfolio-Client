@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-8 mx-72">
+    <div class="mt-8 flex flex-col items-center justify-center md:items-start md:justify-start">
         <h1 class="text-2xl font-bold mb-4 text-start">My Card</h1>
         <div class="rounded-lg shadow-lg bg-lightGray gap-4  w-4/5 md:w-1/2">
             <div class="py-12 mx-8 flex flex-col justify-center items-center">

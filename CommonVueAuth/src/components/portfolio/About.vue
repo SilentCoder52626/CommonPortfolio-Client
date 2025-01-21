@@ -1,10 +1,10 @@
 <template>
     <div class="mt-16 border-t-2 border-indigo-500">
-        <div class="container mx-auto mt-12 px-4">
+        <div class="container mx-auto mt-16 px-4">
 
             <div class="mb-4">
 
-                <h2 class="text-2xl font-semibold pb-2 mb-2 border-b-2 border-indigo-100">About Me</h2>
+                <h2 class="font-semibold pb-2 mb-2 border-b-2 border-indigo-100">About Me</h2>
                 <p class="mb-5  ml-2.5">I'm Kaman Khadka, a Full Stack Developer based in Nepal. I specialize in building scalable web applications and have a passion for learning new technologies. </p>
             </div>
 

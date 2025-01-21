@@ -1,17 +1,17 @@
 <template>
 
     <div class="mt-16 border-t-2 border-indigo-500">
-        <div class="container mx-auto mt-16">
+        <div class="container mx-auto mt-16 px-4">
             <div class="  pb-2 mb-4 border-b-2 border-indigo-100">
-                <h2 class="text-start">Blogs</h2>
-            <p>Welcome to my blog! Here you'll find my thoughts, tutorials, and experiences in tech.</p>
+                <h2 class="text-start font-semibold">Blogs</h2>
+            <p class="ml-2.5">Welcome to my blog! Here you'll find my thoughts, tutorials, and experiences in tech.</p>
 
             </div>
           
                 <h3 class="text-start"><a :href="DevToProfileLink" target="_blank"> Dev Blogs </a></h3>
             
             <template v-if="datas.blogs.length > 0">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5 mx-2.5">
                     <div v-for="(blog, index) in datas.blogs" :key="index" class="mb-4 rounded-lg shadow-lg p-4">
                         <h2 class="text-xl font-semibold capitalize"><a :href="blog.url" target="_blank"> {{ blog.title }} </a></h2>
                         <p class="text-gray-600 mb-4">{{ blog.description }}</p>
