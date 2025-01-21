@@ -82,6 +82,7 @@
       <Home v-if="config.IsHomeMenuSelected" />
       <About v-if="config.IsAboutMenuSelected" />
       <Project v-if="config.IsProjectMenuSelected" />
+      <Blog v-if="config.IsBlogMenuSelected" />
       <div
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         aria-hidden="true">
@@ -99,7 +100,7 @@ import { Dialog, DialogPanel } from '@headlessui/vue'
 import Home from '../components/portfolio/Home.vue';
 import About from '../components/portfolio/About.vue';
 import Project from '../components/portfolio/Project.vue';
-
+import Blog from '../components/portfolio/Blog.vue';
 const config = reactive({
   IsHomeMenuSelected: true,
   IsAboutMenuSelected: false,
