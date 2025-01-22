@@ -7,7 +7,7 @@
                 <p>Below are my open-source projects from GitHub:</p>
             </div>
             <template v-if="datas.projects.length > 0">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-5 mx-2.5">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5">
                     <div v-for="(project, index) in datas.projects" :key="index" class="mb-4 rounded-lg shadow-lg p-4">
                         <h2 class="text-xl font-semibold capitalize"><a :href="project.html_url" target="_blank"> {{ project.name }} </a></h2>
                         <p class="text-gray-600 mb-4">{{ project.description }}</p>

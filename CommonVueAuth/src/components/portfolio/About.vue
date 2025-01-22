@@ -14,9 +14,11 @@
 
                 <div v-for="(category, index) in data" :key="index" class="mb-8 ml-2.5">
                     <h2 class="text-xl font-semibold mb-4 capitalize">{{ category.type }}</h2>
-                    <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         <li v-for="(skill, skillIndex) in category.skills" :key="skillIndex"
                             class="flex items-center space-x-2 ">
+                            <fa :icon="['fab', `${skill.icon}`]" class="size-6" />
+
                             <span class="text-base font-medium">{{ skill.name }}</span>
                         </li>
                     </ul>
@@ -28,7 +30,7 @@
             <div class="mt-4 mb-4">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Experience</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     <div v-for="(experience, index) in experienceData" :key="index"
                         class="mb-8 rounded-lg shadow-lg p-4">
@@ -38,12 +40,11 @@
                     </div>
                 </div>
 
-
             </div>
             <div class="mt-4 mb-4">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Education</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
                     <div v-for="(edu, index) in educationData" :key="index" class="mb-8 rounded-lg shadow-lg p-4 ">
                         <h2 class="text-xl font-semibold capitalize">{{ edu.title }}</h2>
@@ -131,7 +132,7 @@ const data = reactive(
         {
             type: 'backend',
             skills: [
-                { name: 'Node.js', icon: 'nodejs' },
+                { name: 'Node.js', icon: 'node' },
                 { name: 'Express.js', icon: 'express' },
                 { name: 'MongoDB', icon: 'mongodb' },
                 { name: 'MySQL', icon: 'mysql' },
