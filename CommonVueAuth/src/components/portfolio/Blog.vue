@@ -8,7 +8,7 @@
 
             </div>
           
-                <h3 class="text-start"><a :href="DevToProfileLink" target="_blank"> Dev Blogs </a></h3>
+                <h3 class="text-start"><a :href="ConfigData.DevToProfileLink" target="_blank"> Dev Blogs </a></h3>
             
             <template v-if="datas.blogs.length > 0">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5">
@@ -38,7 +38,8 @@ import axios from '../../plugins/axios';
 
 const ConfigData = reactive({
     DevToUserName: "silentcoder52626",
-    BlogsContToShow: 10
+    BlogsContToShow: 10,
+    DevToProfileLink: ''
 });
 
 var datas = reactive({
@@ -46,10 +47,10 @@ var datas = reactive({
 });
 
 onMounted (async () => {
+    ConfigData.DevToProfileLink = DevToProfileLink();
     try {
         const devToData = await axios.get(DevToFetchLink());
         const blogs = devToData.data;
-
         function compare(a, b) {
             if (a.public_reactions_count < b.public_reactions_count)
               return -1;

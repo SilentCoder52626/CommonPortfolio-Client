@@ -25,6 +25,9 @@
           <a href="#" @click="OnBlogMenuClick"
             :class="[config.IsBlogMenuSelected ? activeClass : inactiveClass]">Blog</a>
 
+          <a href="#" @click="OnContactMenuClick"
+            :class="[config.IsContactMenuSelected ? activeClass : inactiveClass]">Contact</a>
+
 
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -66,7 +69,8 @@
                   :class="[config.IsProjectMenuSelected ? mobileActiveClass : mobileInActiveClass]">Project</a>
                 <a href="#" @click="OnBlogMenuClick"
                   :class="[config.IsBlogMenuSelected ? mobileActiveClass : mobileInActiveClass]">Blog</a>
-
+                <a href="#" @click="OnContactMenuClick"
+                  :class="[config.IsContactMenuSelected ? activeClass : inactiveClass]">Contact</a>
               </div>
               <div class="py-6 flex justify-center">
                 <fa :icon="['fab', 'github']"
@@ -89,10 +93,13 @@
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
       </div>
 
-      <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data" :personal-info="personalDetails" />
+      <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data"
+        :personal-info="personalDetails" />
       <About v-if="config.IsAboutMenuSelected" />
       <Project v-if="config.IsProjectMenuSelected" />
       <Blog v-if="config.IsBlogMenuSelected" />
+      <Contact v-if="config.IsContactMenuSelected" />
+
       <div
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
         aria-hidden="true">
@@ -111,45 +118,47 @@ import Home from '../components/portfolio/Home.vue';
 import About from '../components/portfolio/About.vue';
 import Project from '../components/portfolio/Project.vue';
 import Blog from '../components/portfolio/Blog.vue';
+import Contact from '../components/portfolio/Contact.vue';
 
 const personalDetails = reactive({
-    name: 'Kaman Khadka',
-    role: 'Full Stack Developer',
-    shortDescription: 'Passionate about building scalable web applications and solving complex problems',
-    banner: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1736828460/kaman_name_png.png',
-    profile: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1737299508/rr5v6rwkbrz9j9v6tyr0.jpg'
+  name: 'Kaman Khadka',
+  role: 'Full Stack Developer',
+  shortDescription: 'Passionate about building scalable web applications and solving complex problems',
+  banner: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1736828460/kaman_name_png.png',
+  profile: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1737299508/rr5v6rwkbrz9j9v6tyr0.jpg'
 })
 
 const cardDetails = reactive({
-    name: 'Kaman Khadka',
-    role: 'Full Stack Developer',
-    socialLinks: {
-        github: 'https://github.com/silentcoder52626',
-        twitter: 'https://x.com/common_khadka',
-        linkedin: 'https://www.linkedin.com/in/kaman-khadka-474340140/'
-    }
+  name: 'Kaman Khadka',
+  role: 'Full Stack Developer',
+  socialLinks: {
+    github: 'https://github.com/silentcoder52626',
+    twitter: 'https://x.com/common_khadka',
+    linkedin: 'https://www.linkedin.com/in/kaman-khadka-474340140/'
+  }
 })
 const hightlightDetails = reactive({
-    data: [
-        {
-            title: 'Full Stack Developer',
-            description: 'A decade long Experienc in both frontend and backend development using modern technologies.'
-        },
-        {
-            title: 'Problem Solver',
-            description: 'Passionate about solving complex problems and building scalable web applications'
-        },
-        {
-            title: 'Team Player',
-            description: 'A good team player with excellent communication skills and ability to work in a team'
-        }
-    ]
+  data: [
+    {
+      title: 'Full Stack Developer',
+      description: 'A decade long experience in both frontend and backend development using modern technologies.'
+    },
+    {
+      title: 'Problem Solver',
+      description: 'Passionate about solving complex problems and building scalable web applications'
+    },
+    {
+      title: 'Team Player',
+      description: 'A good team player with excellent communication skills and ability to work in a team'
+    }
+  ]
 })
 const config = reactive({
   IsHomeMenuSelected: true,
   IsAboutMenuSelected: false,
   IsProjectMenuSelected: false,
   IsBlogMenuSelected: false,
+  IsContactMenuSelected: false
 })
 
 function OnHomeMenuClick() {
@@ -158,6 +167,8 @@ function OnHomeMenuClick() {
   config.IsProjectMenuSelected = false;
   config.IsBlogMenuSelected = false;
   mobileMenuOpen.value = false;
+  config.IsContactMenuSelected = false
+
 }
 function OnAboutMenuClick() {
   config.IsHomeMenuSelected = false;
@@ -165,6 +176,8 @@ function OnAboutMenuClick() {
   config.IsProjectMenuSelected = false;
   config.IsBlogMenuSelected = false;
   mobileMenuOpen.value = false;
+  config.IsContactMenuSelected= false
+
 }
 function OnProjectMenuClick() {
   config.IsHomeMenuSelected = false;
@@ -172,12 +185,26 @@ function OnProjectMenuClick() {
   config.IsProjectMenuSelected = true;
   config.IsBlogMenuSelected = false;
   mobileMenuOpen.value = false;
+  config.IsContactMenuSelected = false
+
 }
 function OnBlogMenuClick() {
   config.IsHomeMenuSelected = false;
   config.IsAboutMenuSelected = false;
   config.IsProjectMenuSelected = false;
   config.IsBlogMenuSelected = true;
+  mobileMenuOpen.value = false;
+  config.IsContactMenuSelected = false
+
+}
+
+function OnContactMenuClick() {
+  config.IsHomeMenuSelected = false;
+  config.IsAboutMenuSelected = false;
+  config.IsProjectMenuSelected = false;
+  config.IsBlogMenuSelected = false;
+  config.IsContactMenuSelected = true;
+
   mobileMenuOpen.value = false;
 }
 
