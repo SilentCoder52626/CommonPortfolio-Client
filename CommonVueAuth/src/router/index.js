@@ -83,6 +83,11 @@ const router = createRouter({
       name: 'experiences',
       component: () => import('../views/ExperienceView.vue'),
     },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+    },
   ],
 })
 

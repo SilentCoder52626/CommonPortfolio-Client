@@ -8,7 +8,7 @@
 
 
                 <label class="block mt-3">
-                    <span class="text-sm text-gray-700">Web 3 Forms Access Key</span>
+                    <span class="text-sm text-gray-700">Theme</span>
                     <select v-model="data.theme" class="border rounded px-2 py-1 w-full" required>
                         <option v-for="type in themes" :key="type" :value="type">
                             {{ type }}
