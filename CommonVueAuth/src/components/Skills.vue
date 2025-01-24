@@ -19,10 +19,21 @@
             <template v-if="config.isEditing || config.isNewEntry">
 
                 <input required v-model="data.Title" class="border rounded px-2 py-1 w-full"
-                    placeholder="Enter Title" />
+                    placeholder="Title" />
             </template>
             <template v-else>
                 {{ rawData.Title }}
+            </template>
+        </td>
+
+        <td class="border border-gray-300 px-3 py-2 w-1/4">
+            <template v-if="config.isEditing || config.isNewEntry">
+
+                <input required v-model="data.IconClass" class="border rounded px-2 py-1 w-full"
+                    placeholder="Font Awesome Class" />
+            </template>
+            <template v-else>
+                {{ rawData.IconClass }}
             </template>
         </td>
 
@@ -56,7 +67,7 @@
 
 <script setup>
 
-import { defineProps, reactive, onMounted, ref } from 'vue';
+import {  reactive, onMounted, ref } from 'vue';
 
 import axios from '../plugins/axios';
 import loader from '../composables/loader';
@@ -102,12 +113,14 @@ async function DeleteLink() {
 const data = reactive({
     SkillTypeId: '',
     Title: '',
-    Id: ''
+    Id: '',
+    IconClass : ''
 });
 const rawData = reactive({
     SkillTypeId: '',
     Title: '',
-    Id: ''
+    Id: '',
+    IconClass : ''
 });
 const OnSave = async () => {
 
@@ -130,6 +143,8 @@ async function SaveSkill() {
 
     formData.append('title', data.Title);
     formData.append('skillTypeId', data.SkillTypeId);
+    formData.append('iconClass', data.IconClass);
+
 
     var response = await axios.post("/api/skill/create/", formData);
     if (response && response.status === 200) {
@@ -144,6 +159,8 @@ async function SaveSkill() {
 
         rawData.Title = data.Title;
         rawData.SkillTypeId = data.SkillTypeId;
+        rawData.IconClass = data.IconClass;
+
         rawData.Id = data.Id;
     } else {
         loader.UnBlockWindow();
@@ -157,6 +174,7 @@ async function UpdateSkill() {
 
     formData.append('title', data.Title);
     formData.append('skillTypeId', data.SkillTypeId);
+    formData.append('iconClass', data.IconClass);
 
     var response = await axios.put("/api/skill/update/" + data.Id, formData);
     if (response && response.status === 200) {
@@ -165,6 +183,7 @@ async function UpdateSkill() {
 
         rawData.Title = data.Title;
         rawData.SkillTypeId = data.SkillTypeId;
+        rawData.IconClass = data.IconClass;
 
         loader.UnBlockWindow();
         config.isEditing = false;
@@ -183,10 +202,13 @@ onMounted(() => {
     data.Title = props.skill.title;
     data.SkillTypeId = props.skill.skillTypeId;
     data.Id = props.skill.id;
+    data.IconClass = props.skill.iconClass;
 
     rawData.Title = props.skill.title;
     rawData.SkillTypeId = props.skill.skillTypeId;
     rawData.Id = props.skill.id;
+    rawData.IconClass = props.skill.iconClass;
+
 
     config.isNewEntry = props.isNewEntry;
 });
