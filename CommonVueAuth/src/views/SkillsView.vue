@@ -15,20 +15,22 @@
                     <tr>
                         <th class="border border-gray-300 px-3 py-2">Title</th>
                         <th class="border border-gray-300 px-3 py-2">Type</th>
+                        <th class="border border-gray-300 px-3 py-2"><a href="https://fontawesome.com/search?ic=free" target="_blank" class="text-indigo-500"> Icon (Font Awesome) <fa icon="arrow-up-right-from-square"/> </a> </th>
                         <th class="border border-gray-300 px-3 py-2">Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     <Skils v-for="skill in data.skills" :key="skill.id" :skill="skill" :skillTypes="skillTypes" v-if="!config.isLoading" :isNewEntry="isNewEntry"/>
                     <tr v-if="config.isLoading">
-                        <td class="border border-gray-300 px-3 py-2" colspan="3">
+                        <td class="border border-gray-300 px-3 py-2" colspan="4">
                             <div class="flex justify-center items-center">
-                                <fa icon="spinner" /> &nbsp; Loading Skills...
+                                <fa icon="spinner" class="animate-spin text-2xl text-indigo-500"></fa>
+                                &nbsp; Loading Skills...
                             </div>
                         </td>
                     </tr>
                     <tr v-if="config.noDataFound">
-                        <td class="border border-gray-300 px-3 py-2" colspan="3">
+                        <td class="border border-gray-300 px-3 py-2" colspan="4">
                             <div class="flex justify-center items-center">
                                 <fa icon="exclamation-triangle" /> &nbsp; No Skills Found.
                             </div>
@@ -66,7 +68,8 @@ const AddSkill = () => {
   data.skills.unshift({
     id: '',  
     title: '', 
-    skillTypeId: ''
+    skillTypeId: '',
+    iconClass : ''
   });
     isNewEntry.value = true;
 };

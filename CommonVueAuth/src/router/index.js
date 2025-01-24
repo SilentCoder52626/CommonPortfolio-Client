@@ -83,6 +83,11 @@ const router = createRouter({
       component: () => import('../views/ExperienceView.vue'),
     },
     {
+       path: '/profile',
+      name: 'profile',
+      component: () => import('../views/ProfileView.vue'),
+    },
+    {
       path: '/p/:userName',
       name: 'portfolio',
       component: PortfolioView,

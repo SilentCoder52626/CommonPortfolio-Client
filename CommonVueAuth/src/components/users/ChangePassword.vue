@@ -54,17 +54,7 @@
     })
     onMounted(async () => {
         try {
-            loader.BlockWindow(ChangePasswordForm.value, afterSlot());
-            
-            const response = await axios.get("/api/user-details");
-            if (response.status === 200) {
-                const user = response.data;
-                data.email = user.email;
-                loader.UnBlockWindow();
-            } else {
-                $toast.error("Something went wrong.", "Error!");
-                loader.UnBlockWindow();
-            }
+            data.email = authStore.email
         } catch (error) {
             console.error("Error fetching user:", error);
         }
@@ -102,7 +92,7 @@
 
 
         } catch (error) {
-            console.error("Error fetching user:", error);
+            console.error("Something went wrong:", error);
         }
 
     } 
