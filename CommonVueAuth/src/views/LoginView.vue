@@ -120,12 +120,12 @@ const login =  async () =>{
 const checkValidation = () => {
     if(!data.userName){
       validation.userNameVal = "Username is required."
-      $loader.unBlockContent();
+      loader.unBlockContent();
         return false;
     }
     if(!data.password){
       validation.passwordVal = "Password is required."
-      $loader.unBlockContent();
+      loader.unBlockContent();
 
         return false;
     }

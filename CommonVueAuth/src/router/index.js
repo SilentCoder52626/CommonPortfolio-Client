@@ -1,8 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../views/DashboardView.vue'
 import { useAuthStore } from '@/stores/authStore'
 import { jwtDecode } from "jwt-decode";
-
+import PortfolioView from '../views/PortfolioView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -10,7 +9,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'dashboard',
-      component: DashboardView,
+      component: () => import('../views/DashboardView.vue'),
     },
     {
       path: '/login',
@@ -84,9 +83,16 @@ const router = createRouter({
       component: () => import('../views/ExperienceView.vue'),
     },
     {
-      path: '/profile',
+       path: '/profile',
       name: 'profile',
       component: () => import('../views/ProfileView.vue'),
+    },
+    {
+      path: '/p/:userName',
+      name: 'portfolio',
+      component: PortfolioView,
+      props: true,
+      meta: { layout: 'empty' }
     },
   ],
 })
@@ -94,12 +100,17 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-
   const publicPages = ["/login", "/register", "/forget-password"];
   const adminPages = ["/users"];
-  const authRequired = !publicPages.includes(to.path);
+
+  const isDynamicUserPage = to.name === 'portfolio';
+  
+  var authRequired = !publicPages.includes(to.path);
+  if(authRequired && isDynamicUserPage) {
+    authRequired = false;
+  }
   const loggedIn = authStore.isLoggedIn;
-  if (loggedIn) {
+  if (loggedIn && !isDynamicUserPage) {
     try {
       const decodedToken = jwtDecode(authStore.jwt);
       const currentTime = Math.floor(Date.now() / 1000); // Current time in seconds
