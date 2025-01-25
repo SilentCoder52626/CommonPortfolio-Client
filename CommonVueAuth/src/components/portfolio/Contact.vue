@@ -17,7 +17,7 @@
                             </div>
                             <a href="#" class="text-[#007bff] text-sm ml-4">
                                 <small class="block">Mail</small>
-                                <strong>commonkhadka@gmail.com</strong>
+                                <strong>{{props.email}}</strong>
                             </a>
                         </li>
                     </ul>
@@ -82,8 +82,22 @@ import { useToast } from '../../composables/useToast';
 import loader from '../../composables/loader';
 import { afterSlot } from '../../composables/afterSlot';
 
-const WebformKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
-console.log(WebformKey);
+
+const props = defineProps({
+    webFormKey: {
+        type: String,
+        required: false
+    },
+    email: {
+        type: String,
+        required: false
+    },
+    socials: {
+        type: Object,
+        required: false
+    }
+});
+
 const $toast = useToast();
 
 var model = reactive({
@@ -108,7 +122,7 @@ const SendMessage = async () => {
             Accept: "application/json",
         },
         body: JSON.stringify({
-            access_key: WebformKey,
+            access_key: props.webFormKey,
             name: model.name,
             email: model.email,
             subject: model.subject,

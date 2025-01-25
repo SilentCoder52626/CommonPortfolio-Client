@@ -95,10 +95,14 @@
 
       <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data"
         :personal-info="personalDetails" />
-      <About v-if="config.IsAboutMenuSelected" />
-      <Project v-if="config.IsProjectMenuSelected" />
-      <Blog v-if="config.IsBlogMenuSelected" />
-      <Contact v-if="config.IsContactMenuSelected" />
+
+      <About v-if="config.IsAboutMenuSelected" :educations="educations.data" :experiences="experiences.data"
+        :skills="skills.data" :description="description" />
+
+      <Project v-if="config.IsProjectMenuSelected" :projectData="projectData" />
+
+      <Blog v-if="config.IsBlogMenuSelected" :blogData="blogData" />
+      <Contact v-if="config.IsContactMenuSelected" :email="contactData.email" :webFormKey="contactData.webFormKey" :socials="contactData.socials"/>
 
       <div
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
@@ -112,8 +116,12 @@
 </template>
 
 <script setup>
-import { defineProps, ref, reactive } from 'vue';
+import { defineProps, ref, reactive, onMounted } from 'vue';
 import { Dialog, DialogPanel } from '@headlessui/vue'
+
+import axios from '../plugins/axios';
+
+
 import Home from '../components/portfolio/Home.vue';
 import About from '../components/portfolio/About.vue';
 import Project from '../components/portfolio/Project.vue';
@@ -121,37 +129,47 @@ import Blog from '../components/portfolio/Blog.vue';
 import Contact from '../components/portfolio/Contact.vue';
 
 const personalDetails = reactive({
-  name: 'Kaman Khadka',
-  role: 'Full Stack Developer',
-  shortDescription: 'Passionate about building scalable web applications and solving complex problems',
+  name: '',
+  role: '',
+  shortDescription: '',
   banner: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1736828460/kaman_name_png.png',
-  profile: 'https://res.cloudinary.com/dkoc7pi7u/image/upload/v1737299508/rr5v6rwkbrz9j9v6tyr0.jpg'
+  cvLink: ''
 })
 
 const cardDetails = reactive({
-  name: 'Kaman Khadka',
-  role: 'Full Stack Developer',
+  name: '',
+  role: '',
+  profile: '',
   socialLinks: {
-    github: 'https://github.com/silentcoder52626',
-    twitter: 'https://x.com/common_khadka',
-    linkedin: 'https://www.linkedin.com/in/kaman-khadka-474340140/'
+    github: '',
+    twitter: '',
+    linkedin: ''
   }
 })
 const hightlightDetails = reactive({
-  data: [
-    {
-      title: 'Full Stack Developer',
-      description: 'A decade long experience in both frontend and backend development using modern technologies.'
-    },
-    {
-      title: 'Problem Solver',
-      description: 'Passionate about solving complex problems and building scalable web applications'
-    },
-    {
-      title: 'Team Player',
-      description: 'A good team player with excellent communication skills and ability to work in a team'
-    }
-  ]
+  data: []
+})
+
+
+const educations = reactive({
+  data: []
+})
+const experiences = reactive({
+  data: []
+})
+const skills = reactive({
+  data: []
+})
+const description = ref('');
+
+const projectData = reactive({
+  GithubUserName: '',
+  GithubProjectContToShow: 10
+})
+
+const blogData = reactive({
+  BlogsContToShow : 6,
+  DevToProfileLink : ""
 })
 const config = reactive({
   IsHomeMenuSelected: true,
@@ -161,6 +179,11 @@ const config = reactive({
   IsContactMenuSelected: false
 })
 
+const contactData = reactive({
+  email: '',
+  webFormKey : '',
+  socials : []
+})
 function OnHomeMenuClick() {
   config.IsHomeMenuSelected = true;
   config.IsAboutMenuSelected = false;
@@ -176,7 +199,7 @@ function OnAboutMenuClick() {
   config.IsProjectMenuSelected = false;
   config.IsBlogMenuSelected = false;
   mobileMenuOpen.value = false;
-  config.IsContactMenuSelected= false
+  config.IsContactMenuSelected = false
 
 }
 function OnProjectMenuClick() {
@@ -230,5 +253,96 @@ const props = defineProps({
   },
 });
 
+onMounted(async () => {
+
+  const response = await axios.get('/api/' + props.userName + '/info');
+
+  if (response.status == 200) {
+    var userData = response.data;
+
+    configureHomePage();
+
+    configureAboutPage();
+
+    projectData.GithubUserName =  userData.accountLinks.find(account => account.name === 'Github')?.url ?? "";
+    blogData.DevToProfileLink = userData.accountLinks.find(account => account.name === 'Dev')?.url ?? "";
+
+    contactData.email = userData.user.email;
+    contactData.webFormKey = userData.setting.weB3FormsAcessKey;
+    contactData.socials = userData.accountLinks.filter(account => account.name !== 'Dev' && account.name !== 'Github');
+
+  } else {
+    console.log("Error fetching data");
+  }
+
+  function configureAboutPage() {
+
+    description.value = userData.accountDetails.detailedDescription;
+
+    const educatioinsResponse = userData.educations.map(item => ({
+      title: item.title,
+      university: item.university,
+      startYear: item.startYear,
+      endYear: item.endYear,
+      description: item.description,
+      address: item.address
+    }));
+    educations.data = educatioinsResponse;
+
+    const experienceResponse = userData.experiences.map(item => ({
+      title: item.title,
+      organization: item.organization,
+      duration: item.duration,
+      description: item.description
+    }));
+    experiences.data = experienceResponse;
+
+    skills.data = userData.skills.reduce((acc, item) => {
+      const group = acc.find(g => g.type.toLowerCase() === item.skillType.toLowerCase());
+
+      const skill = {
+        name: item.title,
+        icon: item.iconClass || ""
+      };
+
+      if (group) {
+        group.skills.push(skill);
+      } else {
+
+        acc.push({
+          type: item.skillType.toLowerCase(),
+          skills: [skill]
+        });
+      }
+
+      return acc;
+    }, []);
+
+  }
+  function configureHomePage() {
+    cardDetails.name = userData.user.name;
+    cardDetails.role = userData.accountDetails.position;
+    cardDetails.profile = userData.accountDetails.profilePictureLink;
+
+    cardDetails.socialLinks.twitter = userData.accountLinks.find(account => account.name === 'Twitter')?.url ?? "";
+    cardDetails.socialLinks.linkedin = userData.accountLinks.find(account => account.name === 'LinkedIn')?.url ?? "";
+    cardDetails.socialLinks.github = userData.accountLinks.find(account => account.name === 'Github')?.url ?? "";
+
+
+    personalDetails.name = userData.user.name;
+    personalDetails.role = userData.accountDetails.position;
+    personalDetails.shortDescription = userData.accountDetails.shortDescription;
+    personalDetails.banner = userData.accountDetails.bannerPictureLink;
+    personalDetails.profile = userData.accountDetails.profilePictureLink;
+    personalDetails.cvLink = userData.accountDetails.cvLink;
+
+
+    const highlightsResponse = userData.highlightDetails.map(item => ({
+      title: item.title,
+      description: item.description
+    }));
+    hightlightDetails.data = highlightsResponse;
+  }
+})
 
 </script>

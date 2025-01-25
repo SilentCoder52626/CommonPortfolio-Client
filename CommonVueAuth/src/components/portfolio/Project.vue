@@ -9,10 +9,13 @@
             <template v-if="datas.projects.length > 0">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5">
                     <div v-for="(project, index) in datas.projects" :key="index" class="mb-4 rounded-lg shadow-lg p-4">
-                        <h2 class="text-xl font-semibold capitalize"><a :href="project.html_url" target="_blank"> {{ project.name }} </a></h2>
+                        <h2 class="text-xl font-semibold capitalize"><a :href="project.html_url" target="_blank"> {{
+                                project.name }} </a></h2>
                         <p class="text-gray-600 mb-4">{{ project.description }}</p>
-                        <p class="text-gray-600">Stars: {{ project.stargazers_count }} <fa icon="star" class="text-yellow-500" /> | Forks: {{ project.forks_count
-                            }}</p>
+                        <p class="text-gray-600">Stars: {{ project.stargazers_count }}
+                            <fa icon="star" class="text-yellow-500" /> | Forks: {{ project.forks_count
+                            }}
+                        </p>
                     </div>
                 </div>
             </template>
@@ -31,14 +34,14 @@
 <script setup>
 import { onMounted, reactive } from 'vue';
 import axios from '../../plugins/axios';
-
-const ConfigData = reactive({
-    GithubUserName: "SilentCoder52626",    
-    GithubProjectContToShow: 10
+const props = defineProps({
+    projectData: {
+        type: Object,
+        required: true
+    }
 });
-
 var datas = reactive({
-   projects: [] 
+    projects: []
 });
 
 onMounted(async () => {
@@ -56,14 +59,17 @@ onMounted(async () => {
         datas.projects = filteredProjects
             .sort(compare)
             .reverse()
-            .slice(0, ConfigData.GithubProjectContToShow);
+            .slice(0, props.projectData.GithubProjectContToShow);
     } catch (error) {
         console.error(error.message);
     }
 });
 
 const GithubFetchLink = () => {
-    return "https://api.github.com/users/" + ConfigData.GithubUserName + "/repos";
+    const url = props.projectData.GithubUserName;
+    const username = url.match(/github\.com\/([^/]+)/)[1];
+
+    return "https://api.github.com/users/" + username + "/repos";
 }
 
 
