@@ -17,7 +17,7 @@
                             </div>
                             <a href="#" class="text-[#007bff] text-sm ml-4">
                                 <small class="block">Mail</small>
-                                <strong>{{props.email}}</strong>
+                                <strong>{{ props.email }}</strong>
                             </a>
                         </li>
                     </ul>
@@ -26,33 +26,12 @@
                 <div class="mt-12">
                     <h2 class="text-gray-800 text-base font-bold">Socials</h2>
 
-                    <ul class="flex mt-4 space-x-4 pl-0 ">
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
-                                <fa :icon="['fab', 'github']" class="size-6 mt-1 text-gray-600 hover:text-black" />
-                            </a>
-                        </li>
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
-                                <fa :icon="['fab', 'linkedin']" class="size-6 mt-1 text-gray-600 hover:text-blue-600" />
-                            </a>
-                        </li>
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
-                                <fa :icon="['fab', 'instagram']" class="size-6 mt-1 text-gray-600 hover:text-red-500" />
-
-                            </a>
-                        </li>
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
-                                <fa :icon="['fab', 'twitter']" class="size-6 mt-1 text-gray-600 hover:text-blue-500" />
-
-                            </a>
-                        </li>
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
-                                <fa :icon="['fab', 'dev']" class="size-6 mt-1 text-gray-600 hover:text-black" />
-
+                    <ul class="flex flex-wrap mt-4 gap-4 pl-0">
+                        <li v-for="social in socials" :key="social.id"
+                            class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
+                            <a :href="social.url" target="_blank" rel="noopener noreferrer">
+                                <fa :icon="getIconDefinition(social.name)"
+                                    class="size-6 mt-1 text-gray-600 hover:text-black" />
                             </a>
                         </li>
                     </ul>
@@ -77,7 +56,7 @@
 </template>
 <script setup>
 
-import { reactive } from 'vue';
+import { onMounted, reactive } from 'vue';
 import { useToast } from '../../composables/useToast';
 import loader from '../../composables/loader';
 import { afterSlot } from '../../composables/afterSlot';
@@ -94,10 +73,28 @@ const props = defineProps({
     },
     socials: {
         type: Object,
-        required: false
+        required: false,
+        default: () => [],
+
     }
 });
 
+const getIconDefinition = (name) => {
+    const iconMap = {
+        Github: ["fab", "github"],
+        LinkedIn: ["fab", "linkedin"],
+        Facebook: ["fab", "facebook"],
+        Twitter: ["fab", "twitter"],
+        Instagram: ["fab", "instagram"],
+        StackOverflow: ["fab", "stack-overflow"],
+        YouTube: ["fab", "youtube"],
+        Reddit: ["fab", "reddit"],
+        Medium: ["fab", "medium"],
+        Pinterest: ["fab", "pinterest"],
+        Dev: ["fab", "dev"],
+    };
+    return iconMap[name] || ["fas", "question-circle"];
+};
 const $toast = useToast();
 
 var model = reactive({
@@ -137,7 +134,7 @@ const SendMessage = async () => {
         model.message = '';
         $toast.success('Email sent successfully.', 'Success');
 
-    }else{
+    } else {
         $toast.error('Email not sent. Please contact administrator', 'Error');
     }
     loader.UnBlockWindow();
