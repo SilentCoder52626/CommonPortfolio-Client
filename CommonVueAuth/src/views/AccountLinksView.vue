@@ -69,6 +69,8 @@ const AddLink = () => {
     url: ''
   });
     isNewEntry.value = true;
+    config.noDataFound = false;
+
 };
 
 onMounted(async () => {
