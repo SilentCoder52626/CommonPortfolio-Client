@@ -17,7 +17,7 @@
                 </label>
 
                 <label class="block mt-3">
-                    <span class="text-sm text-gray-700">Web 3 Forms Access Key</span>
+                    <span class="text-sm text-gray-700"><a href="https://web3forms.com/" target="_blank" title="Click here to get your access key"> Web 3 Forms Access Key <fa icon="arrow-up-right-from-square"/> </a></span>
                     <input v-model="data.weB3FormsAcessKey" type="text"
                         class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500">
                 </label>
