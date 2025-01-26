@@ -20,28 +20,34 @@
             :class="[config.IsHomeMenuSelected ? activeClass : inactiveClass]">Home</a>
           <a href="#" @click="OnAboutMenuClick"
             :class="[config.IsAboutMenuSelected ? activeClass : inactiveClass]">About</a>
-          <a href="#" @click="OnProjectMenuClick"
-            :class="[config.IsProjectMenuSelected ? activeClass : inactiveClass]">Project</a>
-          <a href="#" @click="OnBlogMenuClick"
-            :class="[config.IsBlogMenuSelected ? activeClass : inactiveClass]">Blog</a>
+          <template v-if="projectData.GithubUserName">
+            <a href="#" @click="OnProjectMenuClick"
+              :class="[config.IsProjectMenuSelected ? activeClass : inactiveClass]">Project</a>
+          </template>
+          <template v-if="blogData.DevToProfileLink">
 
+            <a href="#" @click="OnBlogMenuClick"
+              :class="[config.IsBlogMenuSelected ? activeClass : inactiveClass]">Blog</a>
+          </template>
           <a href="#" @click="OnContactMenuClick"
             :class="[config.IsContactMenuSelected ? activeClass : inactiveClass]">Contact</a>
 
 
         </div>
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+          <template v-if="config.IsContentLoaded">
 
-          <a :href="cardDetails.socialLinks.github" target="_blank">
-            <span>
-              <fa :icon="['fab', 'github']" class="size-6 mr-3 text-gray-600 hover:text-black" />
-            </span>
-          </a>
-          <a :href="cardDetails.socialLinks.twitter" target="_blank">
-            <span>
-              <fa :icon="['fab', 'twitter']" class="size-6 mr-3 text-gray-600  hover:text-sky-500" />
-            </span>
-          </a>
+            <a :href="cardDetails.socialLinks.github" target="_blank">
+              <span>
+                <fa :icon="['fab', 'github']" class="size-6 mr-3 text-gray-600 hover:text-black" />
+              </span>
+            </a>
+            <a :href="cardDetails.socialLinks.twitter" target="_blank">
+              <span>
+                <fa :icon="['fab', 'twitter']" class="size-6 mr-3 text-gray-600  hover:text-sky-500" />
+              </span>
+            </a>
+          </template>
 
         </div>
       </nav>
@@ -65,20 +71,27 @@
                   :class="[config.IsHomeMenuSelected ? mobileActiveClass : mobileInActiveClass]">Home</a>
                 <a href="#" @click="OnAboutMenuClick"
                   :class="[config.IsAboutMenuSelected ? mobileActiveClass : mobileInActiveClass]">About</a>
-                <a href="#" @click="OnProjectMenuClick"
-                  :class="[config.IsProjectMenuSelected ? mobileActiveClass : mobileInActiveClass]">Project</a>
-                <a href="#" @click="OnBlogMenuClick"
-                  :class="[config.IsBlogMenuSelected ? mobileActiveClass : mobileInActiveClass]">Blog</a>
-                <a href="#" @click="OnContactMenuClick"
-                  :class="[config.IsContactMenuSelected ? activeClass : inactiveClass]">Contact</a>
-              </div>
-              <div class="py-6 flex justify-center">
-                <fa :icon="['fab', 'github']"
-                  class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" />
+                <template v-if="projectData.GithubUserName">
+                  <a href="#" @click="OnProjectMenuClick"
+                    :class="[config.IsProjectMenuSelected ? mobileActiveClass : mobileInActiveClass]">Project</a>
+                </template>
+                <template v-if="blogData.DevToProfileLink">
+                  <a href="#" @click="OnBlogMenuClick"
+                    :class="[config.IsBlogMenuSelected ? mobileActiveClass : mobileInActiveClass]">Blog</a>
+                </template>
 
-                <fa :icon="['fab', 'linkedin']"
-                  class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" />
+                <a href="#" @click="OnContactMenuClick"
+                  :class="[config.IsContactMenuSelected ? mobileActiveClass : mobileInActiveClass]">Contact</a>
               </div>
+              <template v-if="config.IsContentLoaded">
+                <div class="py-6 flex justify-center">
+                  <fa :icon="['fab', 'github']"
+                    class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" />
+
+                  <fa :icon="['fab', 'linkedin']"
+                    class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" />
+                </div>
+              </template>
             </div>
           </div>
         </DialogPanel>
@@ -93,16 +106,27 @@
           style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)" />
       </div>
 
-      <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data"
-        :personal-info="personalDetails" />
+      <template v-if="config.IsContentLoaded">
+        <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data"
+          :personal-info="personalDetails" />
 
-      <About v-if="config.IsAboutMenuSelected" :educations="educations.data" :experiences="experiences.data"
-        :skills="skills.data" :description="description" />
+        <About v-if="config.IsAboutMenuSelected" :educations="educations.data" :experiences="experiences.data"
+          :skills="skills.data" :description="description" />
 
-      <Project v-if="config.IsProjectMenuSelected" :projectData="projectData" />
+        <Project v-if="config.IsProjectMenuSelected" :projectData="projectData" />
 
-      <Blog v-if="config.IsBlogMenuSelected" :blogData="blogData" />
-      <Contact v-if="config.IsContactMenuSelected" :email="contactData.email" :webFormKey="contactData.webFormKey" :socials="contactData.socials"/>
+        <template v-if="blogData.DevToProfileLink">
+
+          <Blog v-if="config.IsBlogMenuSelected" :blogData="blogData" />
+        </template>
+        <Contact v-if="config.IsContactMenuSelected" :email="contactData.email" :webFormKey="contactData.webFormKey"
+          :socials="contactData.socials" />
+      </template>
+      <template v-else>
+        <div class="flex justify-center items-center min-h-screen">
+          <div class="w-16 h-16 border-8 border-dashed rounded-full animate-spin border-indigo-600"></div>
+        </div>
+      </template>
 
       <div
         class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
@@ -162,27 +186,29 @@ const skills = reactive({
 })
 const description = ref('');
 
+
 const projectData = reactive({
   GithubUserName: '',
   GithubProjectContToShow: 10
 })
 
 const blogData = reactive({
-  BlogsContToShow : 6,
-  DevToProfileLink : ""
+  BlogsContToShow: 6,
+  DevToProfileLink: ""
 })
 const config = reactive({
   IsHomeMenuSelected: true,
   IsAboutMenuSelected: false,
   IsProjectMenuSelected: false,
   IsBlogMenuSelected: false,
-  IsContactMenuSelected: false
+  IsContactMenuSelected: false,
+  IsContentLoaded: false
 })
 
 const contactData = reactive({
   email: '',
-  webFormKey : '',
-  socials : []
+  webFormKey: '',
+  socials: []
 })
 function OnHomeMenuClick() {
   config.IsHomeMenuSelected = true;
@@ -256,7 +282,6 @@ const props = defineProps({
 onMounted(async () => {
 
   const response = await axios.get('/api/' + props.userName + '/info');
-
   if (response.status == 200) {
     var userData = response.data;
 
@@ -264,12 +289,14 @@ onMounted(async () => {
 
     configureAboutPage();
 
-    projectData.GithubUserName =  userData.accountLinks.find(account => account.name === 'Github')?.url ?? "";
+    projectData.GithubUserName = userData.accountLinks.find(account => account.name === 'Github')?.url ?? "";
     blogData.DevToProfileLink = userData.accountLinks.find(account => account.name === 'Dev')?.url ?? "";
 
     contactData.email = userData.user.email;
     contactData.webFormKey = userData.setting.weB3FormsAcessKey;
-    contactData.socials = userData.accountLinks.filter(account => account.name !== 'Dev' && account.name !== 'Github');
+    contactData.socials = userData.accountLinks;
+
+    config.IsContentLoaded = true;
 
   } else {
     console.log("Error fetching data");
