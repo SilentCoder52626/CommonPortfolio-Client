@@ -36,6 +36,14 @@
                             placeholder="Short and sweet description"> </textarea>
                     </div>
                 </div>
+                <div class="cvLink">
+                    <div class="w-full">
+                        <label class="text-base text-gray-500 font-semibold mb-2 block">CV (Drive Link)</label>
+                        <textarea v-model="data.cVLink" type="text" :disabled="!isEditView"
+                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                            placeholder="CV Link"> </textarea>
+                    </div>
+                </div>
                 <div class="longDescription">
                     <div class="w-full">
                         <label class="text-base text-gray-500 font-semibold mb-2 block">Detailed Description</label>
@@ -130,6 +138,7 @@ const data = reactive({
     subName: null,
     position: null,
     shortDescription: null,
+    cVLink: null,
     detailedDescription: null,
     deleteProfilePicture: false,
     deleteBannerPicture: false
@@ -157,7 +166,7 @@ async function fetchData() {
         data.subName = responseData.subName;
         data.shortDescription = responseData.shortDescription;
         data.detailedDescription = responseData.detailedDescription;
-
+        data.cVLink = responseData.cVLink;
         imagePre.bannerImage = responseData.bannerPictureLink;
         imagePre.profilePicture = responseData.profilePictureLink;
         loader.UnBlockWindow();
@@ -181,6 +190,7 @@ const submit = async () => {
     formData.append('detailedDescription', data.detailedDescription);
     formData.append('deleteBannerPicture', data.deleteBannerPicture);
     formData.append('deleteProfilePicture', data.deleteProfilePicture);
+    formData.append('cVLink', data.cVLink);
 
     var response = await axios.post("/api/account-details/addorupdate", formData, {
         headers: {
@@ -197,7 +207,7 @@ const submit = async () => {
         data.subName = responseData.subName;
         data.shortDescription = responseData.shortDescription;
         data.detailedDescription = responseData.detailedDescription;
-
+        data.cVLink = responseData.cVLink;
 
         loader.UnBlockWindow();
     } else {
