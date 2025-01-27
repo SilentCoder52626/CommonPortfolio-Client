@@ -36,14 +36,14 @@
 
 
                 </div>
-                <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+                <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-1">
 
-                    <a :href="cardDetails.socialLinks.github" target="_blank">
+                    <a :href="cardDetails.socialLinks.github" target="_blank" v-if="cardDetails.socialLinks.github">
                         <span>
                             <fa :icon="['fab', 'github']" class="size-6 mr-3 text-gray-600 hover:text-black" />
                         </span>
                     </a>
-                    <a :href="cardDetails.socialLinks.twitter" target="_blank">
+                    <a :href="cardDetails.socialLinks.twitter" target="_blank" v-if="cardDetails.socialLinks.twitter">
                         <span>
                             <fa :icon="['fab', 'twitter']" class="size-6 mr-3 text-gray-600  hover:text-sky-500" />
                         </span>
@@ -86,10 +86,10 @@
                             </div>
                             <div class="py-6 flex justify-center">
                                 <fa :icon="['fab', 'github']"
-                                    class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" />
+                                    class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" v-if="cardDetails.socialLinks.github"/>
 
                                 <fa :icon="['fab', 'linkedin']"
-                                    class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" />
+                                    class="size-6 mr-3  text-gray-500 hover:text-gray-900 transition-colors duration-200" v-if="cardDetails.socialLinks.twitter"/>
                             </div>
                         </div>
                     </div>
@@ -270,7 +270,7 @@ const props = defineProps({
 onMounted(async () => {
 
     var userData = props.userData;
-    console.log(userData);
+
     configureHomePage();
 
     configureAboutPage();

@@ -12,12 +12,12 @@
                     <h2 class="text-xl text-bold text-center m-0">{{ cardDetails.name }}</h2>
                     <p class="text-md text-gray-600 text-center pt-1 m-0">{{ cardDetails.role }}</p>
                     <div class="flex flex-row items-center justify-center gap-3 mt-4">
-                        <a :href="cardDetails.socialLinks.github" target="_blank">
+                        <a :href="props.cardDetails.socialLinks.github" target="_blank" v-if="props.cardDetails.socialLinks.github">
                             <span>
                                 <fa :icon="['fab', 'github']" class="size-6 text-gray-600 mr-3 hover:text-black" />
                             </span>
                         </a>
-                        <a :href="cardDetails.socialLinks.twitter" target="_blank">
+                        <a :href="props.cardDetails.socialLinks.twitter" target="_blank" v-if="props.cardDetails.socialLinks.twitter">
                             <span>
                                 <fa :icon="['fab', 'twitter']" class="size-6 text-gray-600 mr-3 hover:text-sky-500" />
                             </span>
@@ -29,8 +29,10 @@
     </div>
 </template>
 <script setup>
-import { defineProps } from 'vue';
-
+import { defineProps, onMounted } from 'vue';
+onMounted(() => {
+    console.log(props.cardDetails);
+});
 const props = defineProps({
     cardDetails: {
         type: Object,
