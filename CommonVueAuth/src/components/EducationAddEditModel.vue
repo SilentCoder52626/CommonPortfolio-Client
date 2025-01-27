@@ -128,6 +128,9 @@ async function UpdateEducation() {
               placeholder="end year">
           </div>
         </div>
+        
+      </div>
+      <div class="grid grid-cols-1 gap-4 mt-4">
         <div class="description">
           <div class="w-full">
             <label class="text-base text-gray-500 font-semibold mb-2 block">Description*</label>
