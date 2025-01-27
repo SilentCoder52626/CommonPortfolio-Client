@@ -8,7 +8,7 @@
 
             </div>
           
-                <h3 class="text-start"><a :href="ConfigData.DevToProfileLink" target="_blank"> Dev Blogs </a></h3>
+                <h3 class="text-start"><a :href="props.blogData.DevToProfileLink" target="_blank"> Dev Blogs </a></h3>
             
             <template v-if="datas.blogs.length > 0">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5">
@@ -36,18 +36,19 @@
 import { onMounted, reactive } from 'vue';
 import axios from '../../plugins/axios';
 
-const ConfigData = reactive({
-    DevToUserName: "silentcoder52626",
-    BlogsContToShow: 10,
-    DevToProfileLink: ''
+const props = defineProps({
+    blogData: {
+        type: Object,
+        required: true
+    }
 });
+
 
 var datas = reactive({
     blogs: []
 });
 
 onMounted (async () => {
-    ConfigData.DevToProfileLink = DevToProfileLink();
     try {
         const devToData = await axios.get(DevToFetchLink());
         const blogs = devToData.data;
@@ -60,16 +61,16 @@ onMounted (async () => {
           }
 
         datas.blogs = blogs.sort(compare).reverse()
-            .slice(0, ConfigData.BlogsContToShow);
+            .slice(0, props.blogData.BlogsContToShow);
     } catch (error) {
         console.error(error);
     }
 });
 const DevToFetchLink = () => {
-    return "https://dev.to/api/articles?username=" + ConfigData.DevToUserName;
-}
-const DevToProfileLink = () => {
-    return "https://dev.to/" + ConfigData.DevToUserName;
+    const url = props.blogData.DevToProfileLink;
+    const username = url.match(/dev\.to\/([^/]+)/)[1];
+
+    return "https://dev.to/api/articles?username=" + username;
 }
 </script>
 <script scoped>

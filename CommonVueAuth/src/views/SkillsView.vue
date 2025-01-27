@@ -13,8 +13,10 @@
             <table class="w-full border-collapse table-auto">
                 <thead>
                     <tr>
-                        <th class="border border-gray-300 px-3 py-2">Title</th>
                         <th class="border border-gray-300 px-3 py-2">Type</th>
+
+                        <th class="border border-gray-300 px-3 py-2">Title</th>
+
                         <th class="border border-gray-300 px-3 py-2"><a href="https://fontawesome.com/search?ic=free" target="_blank" class="text-indigo-500"> Icon (Font Awesome) <fa icon="arrow-up-right-from-square"/> </a> </th>
                         <th class="border border-gray-300 px-3 py-2">Actions</th>
                     </tr>
@@ -72,6 +74,8 @@ const AddSkill = () => {
     iconClass : ''
   });
     isNewEntry.value = true;
+    config.noDataFound = false;
+
 };
 
 onMounted(async () => {

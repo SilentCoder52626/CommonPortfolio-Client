@@ -16,9 +16,9 @@
             </div>
 
             <div class="mt-3 flex gap-4 items-center lg:items-start justify-center lg:justify-start">
-                <button class="bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700">
-                    View Projects
-                </button>
+                <a :href="personalDetails.cvLink" target="_blank" class="bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700">
+                    View Resume
+                </a>
                 <button class="bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-gray-300">
                     About Me
                 </button>
