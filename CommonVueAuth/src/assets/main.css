@@ -29,3 +29,9 @@ a{
   align-items: center !important;  
   justify-content: center !important; 
 }
+
+
+svg.md-editor-icon{
+  width: 24px !important;
+  height: 24px !important;
+}

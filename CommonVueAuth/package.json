@@ -21,6 +21,8 @@
     "axios": "^1.7.9",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
+    "marked": "^15.0.6",
+    "md-editor-v3": "^5.2.1",
     "pinia": "^2.2.6",
     "pinia-plugin-persistedstate": "^4.2.0",
     "toastr": "^2.1.4",

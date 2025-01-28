@@ -105,7 +105,7 @@
             </div>
 
             <Home v-if="config.IsHomeMenuSelected" :cardDetails="cardDetails" :highlights="hightlightDetails.data"
-                :personal-info="personalDetails" />
+                :personal-info="personalDetails" @goToAbout="OnAboutMenuClick" />
 
             <About v-if="config.IsAboutMenuSelected" :educations="educations.data" :experiences="experiences.data"
                 :skills="skills.data" :description="description" />

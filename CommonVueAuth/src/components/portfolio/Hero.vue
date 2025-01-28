@@ -6,8 +6,7 @@
                 <h1 class="text-4xl font-bold text-blue-900 tracking-tight lg:text-6xl">
                     {{ personalDetails.name }}
                 </h1>
-                <h2
-                    class="text-4xl lg:text-6xl font-bold text-gray-700 tracking-tight leading-snug ">
+                <h2 class="text-4xl lg:text-6xl font-bold text-gray-700 tracking-tight leading-snug ">
                     {{ personalDetails.role }}
                 </h2>
                 <p class="text-md lg:text-2xl text-gray-600 -pt-1 lg:pt-4 text-start md:text-start ">
@@ -16,10 +15,11 @@
             </div>
 
             <div class="mt-3 flex gap-4 items-center lg:items-start justify-center lg:justify-start">
-                <a :href="personalDetails.cvLink" target="_blank" class="bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700">
+                <a :href="personalDetails.cvLink" target="_blank"
+                    class="bg-blue-600 text-white font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-blue-700">
                     View Resume
                 </a>
-                <button class="bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-gray-300">
+                <button type="button" class="bg-gray-200 text-gray-800 font-medium py-2 px-4 rounded-lg shadow-lg hover:bg-gray-300" @click="goToAbout">
                     About Me
                 </button>
             </div>
@@ -32,6 +32,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
+const emit = defineEmits();
 
 defineProps({
     personalDetails: {
@@ -39,4 +40,7 @@ defineProps({
         required: true
     }
 })
+function goToAbout() {
+    emit('goToAbout');
+}
 </script>

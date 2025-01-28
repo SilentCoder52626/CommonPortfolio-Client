@@ -11,7 +11,7 @@
         </div>
         <form @submit.prevent="submit" ref="PersonalDetailsForm" class="mt-2">
 
-            <div class="grid grid-cols-1 md:grid-cols-2  gap-4">
+            <div class="grid grid-cols-1 md:grid-cols-2  gap-4 mb-4">
                 <div class="position">
                     <div class="w-full">
                         <label class="text-base text-gray-500 font-semibold mb-2 block">Position</label>
@@ -28,6 +28,14 @@
                             placeholder="Nickname">
                     </div>
                 </div>
+                <div class="cvLink">
+                    <div class="w-full">
+                        <label class="text-base text-gray-500 font-semibold mb-2 block">CV (Drive Link)</label>
+                        <input v-model="data.cVLink" type="text" :disabled="!isEditView"
+                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                            placeholder="CV Link"/>
+                    </div>
+                </div>
                 <div class="shortDescription">
                     <div class="w-full">
                         <label class="text-base text-gray-500 font-semibold mb-2 block">Short Description</label>
@@ -36,22 +44,8 @@
                             placeholder="Short and sweet description"> </textarea>
                     </div>
                 </div>
-                <div class="cvLink">
-                    <div class="w-full">
-                        <label class="text-base text-gray-500 font-semibold mb-2 block">CV (Drive Link)</label>
-                        <textarea v-model="data.cVLink" type="text" :disabled="!isEditView"
-                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                            placeholder="CV Link"> </textarea>
-                    </div>
-                </div>
-                <div class="longDescription">
-                    <div class="w-full">
-                        <label class="text-base text-gray-500 font-semibold mb-2 block">Detailed Description</label>
-                        <textarea v-model="data.detailedDescription" type="text" :disabled="!isEditView"
-                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                            placeholder="Short and sweet description"> </textarea>
-                    </div>
-                </div>
+                
+               
                 <div class="profile">
                     <div class="w-full">
                         <label class="text-base text-gray-500 font-semibold mb-2 block">Profile Picture</label>
@@ -83,8 +77,18 @@
                         </button>
                     </div>
                 </div>
+               
 
 
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+                <div class="longDescription">
+                    <div class="w-full">
+                        <label class="text-base text-gray-500 font-semibold mb-2 block">Detailed Description</label>
+                        <MdEditor v-model="data.detailedDescription" :disabled="!isEditView"
+                            />
+                    </div>
+                </div>
 
             </div>
             <div v-if="isEditView" class='actions mt-6 flex justify-end'>
@@ -137,9 +141,9 @@ const data = reactive({
     profilePicture: null,
     subName: null,
     position: null,
-    shortDescription: null,
+    shortDescription: '',
     cVLink: null,
-    detailedDescription: null,
+    detailedDescription: '',
     deleteProfilePicture: false,
     deleteBannerPicture: false
 

@@ -14,6 +14,11 @@ import { AgGridVue } from 'ag-grid-vue3';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-alpine.css';
 
+import 'md-editor-v3/lib/style.css';
+import MdEditorWrapper from './components/MdEditorWrapper.vue';
+
+import { marked } from 'marked';
+
 import { AllCommunityModule, ModuleRegistry, provideGlobalGridOptions } from 'ag-grid-community';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
@@ -75,5 +80,8 @@ app.use(VueAxios, axios)
 app.use(toastrPlugin);
 app.component('fa', FontAwesomeIcon);
 app.component('AgGridVue', AgGridVue);
+app.component('MdEditor', MdEditorWrapper);
+app.component('marked',marked);
+
 app.use(model);
 app.mount('#app')
