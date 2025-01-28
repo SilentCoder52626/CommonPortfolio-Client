@@ -1,6 +1,6 @@
 <template>
     <div class="container mx-auto px-4">
-        <Hero :personalDetails="props.personalInfo" />
+        <Hero :personalDetails="props.personalInfo" @goToAbout="forwardToParent" />
         <Highlight :highlights="props.highlights" />
         <Card :cardDetails="props.cardDetails" />
 
@@ -35,6 +35,11 @@ const props = defineProps({
     },
 
 })
+const emit = defineEmits();
+
+const forwardToParent = () => {
+  emit('goToAbout');
+};
 </script>
 
 <style scoped></style>
