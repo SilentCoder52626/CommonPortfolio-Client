@@ -117,9 +117,9 @@ async function UpdateExperience() {
         <div class="description">
           <div class="w-full">
             <label class="text-base text-gray-500 font-semibold mb-2 block">Description*</label>
-            <textarea v-model="data.description" type="text" :disabled="!config.isEditView"
-              class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-              placeholder="description"> </textarea>
+            
+              <MdEditor v-model="data.description" :disabled="!config.isEditView"/>
+
           </div>
         </div>
       </div>

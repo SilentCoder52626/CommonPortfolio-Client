@@ -36,7 +36,7 @@
                         class="mb-8 rounded-lg shadow-lg p-4">
                         <h2 class="text-xl font-semibold capitalize">{{ experience.title }}</h2>
                         <p class="text-gray-600 mb-4">{{ experience.organization }} | {{ experience.duration }}</p>
-                        <p class="text-gray-600">{{ experience.description }}</p>
+                        <p class="text-gray-600" v-html="marked(experience.description)"></p>
                     </div>
                 </div>
 
@@ -49,7 +49,7 @@
                     <div v-for="(edu, index) in educations" :key="index" class="mb-8 rounded-lg shadow-lg p-4 ">
                         <h2 class="text-xl font-semibold capitalize">{{ edu.title }}</h2>
                         <p class="text-gray-600 mb-4">{{ edu.university }} | {{ edu.startYear }} - {{ edu.endYear }}</p>
-                        <p class="text-gray-600">{{ edu.description }}</p>
+                        <p class="text-gray-600" v-html="marked(edu.description)"></p>
                     </div>
                 </div>
 

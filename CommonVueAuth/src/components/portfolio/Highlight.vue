@@ -4,7 +4,7 @@
       <div v-for="(highlight, index) in highlights" :key="index"
         class="px-4 pt-3 bg-lightGray rounded-lg shadow-sm border border-gray-200">
         <h2 class="text-xl font-bold text-gray-800">{{ highlight.title }}</h2>
-        <p class="mt-2 text-gray-600">{{ highlight.description }}</p>
+        <p class="mt-2 text-gray-600" v-html="marked(highlight.description)"></p>
       </div>
     </div>
   </div>
@@ -12,6 +12,7 @@
 
 <script setup>
 import { defineProps } from 'vue';
+import { marked } from 'marked';
 
 defineProps({
   highlights: {

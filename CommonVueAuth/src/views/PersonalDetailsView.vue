@@ -28,6 +28,14 @@
                             placeholder="Nickname">
                     </div>
                 </div>
+                <div class="cvLink">
+                    <div class="w-full">
+                        <label class="text-base text-gray-500 font-semibold mb-2 block">CV (Drive Link)</label>
+                        <input v-model="data.cVLink" type="text" :disabled="!isEditView"
+                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
+                            placeholder="CV Link"/>
+                    </div>
+                </div>
                 <div class="shortDescription">
                     <div class="w-full">
                         <label class="text-base text-gray-500 font-semibold mb-2 block">Short Description</label>
@@ -36,14 +44,7 @@
                             placeholder="Short and sweet description"> </textarea>
                     </div>
                 </div>
-                <div class="cvLink">
-                    <div class="w-full">
-                        <label class="text-base text-gray-500 font-semibold mb-2 block">CV (Drive Link)</label>
-                        <textarea v-model="data.cVLink" type="text" :disabled="!isEditView"
-                            class="block w-full mt-1 border-gray-200 rounded-md focus:border-indigo-600 focus:ring focus:ring-opacity-40 focus:ring-indigo-500"
-                            placeholder="CV Link"> </textarea>
-                    </div>
-                </div>
+                
                
                 <div class="profile">
                     <div class="w-full">
