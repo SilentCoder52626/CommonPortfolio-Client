@@ -56,7 +56,7 @@
 </template>
 <script setup>
 
-import { onMounted, reactive } from 'vue';
+import { reactive } from 'vue';
 import { useToast } from '../../composables/useToast';
 import loader from '../../composables/loader';
 import { afterSlot } from '../../composables/afterSlot';

@@ -33,7 +33,7 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue';
-import axios from '../../plugins/axios';
+import axios from 'axios';
 const props = defineProps({
     projectData: {
         type: Object,
