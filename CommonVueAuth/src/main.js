@@ -72,8 +72,8 @@ const pinia = createPinia()
 pinia.use(piniaPluginPersistedstate)
 app.component('DefaultLayout', DashboardLayout)
 app.component('EmptyLayout', EmptyLayout)
-
 app.use(pinia);
+
 app.use(router)
 app.use(VueAxios, axios)
 

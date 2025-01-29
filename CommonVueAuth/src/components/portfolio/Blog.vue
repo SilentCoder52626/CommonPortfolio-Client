@@ -11,8 +11,8 @@
                 <h3 class="text-start"><a :href="props.blogData.DevToProfileLink" target="_blank"> Dev Blogs </a></h3>
             
             <template v-if="datas.blogs.length > 0">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5">
-                    <div v-for="(blog, index) in datas.blogs" :key="index" class="mb-4 rounded-lg shadow-lg p-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5 ">
+                    <div v-for="(blog, index) in datas.blogs" :key="index" class="mb-4 rounded-lg shadow-lg p-4  transition-transform transform hover:scale-105 hover:shadow-2xl">
                         <h2 class="text-xl font-semibold capitalize"><a :href="blog.url" target="_blank"> {{ blog.title }} </a></h2>
                         <p class="text-gray-600 mb-4">{{ blog.description }}</p>
                         <p class="text-gray-600">Reactions: {{ blog.public_reactions_count }} <fa icon="heart" class="text-red-500" /> | Comments: {{ blog.comments_count

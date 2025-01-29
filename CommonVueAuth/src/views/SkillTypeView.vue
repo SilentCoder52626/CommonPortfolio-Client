@@ -68,6 +68,8 @@ const AddSkillType = () => {
         title: ''
     });
     isNewEntry.value = true;
+    config.noDataFound = false;
+
 };
 
 onMounted(async () => {

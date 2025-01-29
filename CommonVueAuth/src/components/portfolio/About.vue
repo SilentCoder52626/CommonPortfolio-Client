@@ -5,7 +5,7 @@
             <div class="mb-4">
 
                 <h2 class="font-semibold pb-2 mb-2 border-b-2 border-indigo-100">About Me</h2>
-                <p class="mb-5  ml-2.5" v-html="marked(description)"></p>
+                <p class="mb-5 ml-2.5" v-html="marked(description)"></p>
             </div>
 
             <div class="mt-4 mb-4">
@@ -17,7 +17,7 @@
                     <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         <li v-for="(skill, skillIndex) in category.skills" :key="skillIndex"
                             class="flex items-center space-x-2 ">
-                            <fa :icon="['fab', `${skill.icon}`]" class="size-6" />
+                            <fa :icon="['fab', skill.icon]" class="size-6" @error="handleError(skill)" />
 
                             <span class="text-base font-medium">{{ skill.name }}</span>
                         </li>
@@ -30,13 +30,13 @@
             <div class="mt-4 mb-4">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Experience</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-4">
 
                     <div v-for="(experience, index) in experiences" :key="index"
-                        class="mb-8 rounded-lg shadow-lg p-4">
+                        class="mb-8 rounded-lg shadow-lg p-4  transition-transform transform hover:scale-105 hover:shadow-2xl">
                         <h2 class="text-xl font-semibold capitalize">{{ experience.title }}</h2>
                         <p class="text-gray-600 mb-4">{{ experience.organization }} | {{ experience.duration }}</p>
-                        <p class="text-gray-600" v-html="marked(experience.description)"></p>
+                        <p v-html="marked(experience.description)"></p>
                     </div>
                 </div>
 
@@ -44,12 +44,12 @@
             <div class="mt-4 mb-4">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Education</h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 gap-4">
 
-                    <div v-for="(edu, index) in educations" :key="index" class="mb-8 rounded-lg shadow-lg p-4 ">
+                    <div v-for="(edu, index) in educations" :key="index" class="mb-8 rounded-lg shadow-lg p-4 transition-transform transform hover:scale-105 hover:shadow-2xl">
                         <h2 class="text-xl font-semibold capitalize">{{ edu.title }}</h2>
-                        <p class="text-gray-600 mb-4">{{ edu.university }} | {{ edu.startYear }} - {{ edu.endYear }}</p>
-                        <p class="text-gray-600" v-html="marked(edu.description)"></p>
+                        <p class="text-gray-600 mb-4">{{ edu.university }} | {{ edu.startYear }} -  {{ edu.endYear ? edu.endYear : 'Running' }}</p>
+                        <p  v-html="marked(edu.description)"></p>
                     </div>
                 </div>
 
@@ -83,6 +83,9 @@ defineProps({
 
 })
 
+const handleError = (skill) => {
+  skillType.value[skill.icon] = 'fas'; 
+};
 </script>
 
 <style scoped></style>

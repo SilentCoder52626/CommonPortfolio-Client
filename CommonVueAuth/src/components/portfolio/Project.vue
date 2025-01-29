@@ -8,7 +8,7 @@
             </div>
             <template v-if="datas.projects.length > 0">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5 mx-2.5">
-                    <div v-for="(project, index) in datas.projects" :key="index" class="mb-4 rounded-lg shadow-lg p-4">
+                    <div v-for="(project, index) in datas.projects" :key="index" class="mb-4 rounded-lg shadow-lg p-4  transition-transform transform hover:scale-105 hover:shadow-2xl">
                         <h2 class="text-xl font-semibold capitalize"><a :href="project.html_url" target="_blank"> {{
                                 project.name }} </a></h2>
                         <p class="text-gray-600 mb-4">{{ project.description }}</p>

@@ -97,10 +97,9 @@ const login =  async () =>{
         
         if (response && response.status === 200) {
             const authResponse = await response.data;
-            
             authStore.setAuthDetails({
               jwt : authResponse.jwt,
-              username: authResponse.username,
+              username: authResponse.userName,
               email: authResponse.email,
               role: authResponse.role,
             });
