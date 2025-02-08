@@ -8,7 +8,7 @@
                 <p class="mb-5 ml-2.5" v-html="marked(description)"></p>
             </div>
 
-            <div class="mt-4 mb-4">
+            <div class="mt-4 mb-5">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Skills</h2>
 
@@ -17,7 +17,7 @@
                     <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                         <li v-for="(skill, skillIndex) in category.skills" :key="skillIndex"
                             class="flex items-center space-x-2 ">
-                            <fa :icon="['fab', skill.icon]" class="size-6" @error="handleError(skill)" />
+                            <fa :icon="[computedSkillType(skill.icon), skill.icon]" class="size-6" />
 
                             <span class="text-base font-medium">{{ skill.name }}</span>
                         </li>
@@ -27,7 +27,7 @@
 
             </div>
 
-            <div class="mt-4 mb-4">
+            <div class="mt-4 mb-5">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Experience</h2>
                 <div class="grid grid-cols-1 gap-4">
@@ -41,7 +41,7 @@
                 </div>
 
             </div>
-            <div class="mt-4 mb-4">
+            <div class="mt-4 mb-5">
 
                 <h2 class="text-2xl font-semibold pb-2 mb-4 border-b-2 border-indigo-100">Education</h2>
                 <div class="grid grid-cols-1 gap-4">
@@ -62,7 +62,11 @@
 </template>
 
 <script setup>
+
 import { marked } from 'marked';
+import { computed } from 'vue';
+import { library } from '@fortawesome/fontawesome-svg-core';
+
 defineProps({
     educations: {
         type: Object,
@@ -83,9 +87,17 @@ defineProps({
 
 })
 
-const handleError = (skill) => {
-  skillType.value[skill.icon] = 'fas'; 
+const getIconType = (iconName) => {
+  if (library.definitions.fas[iconName]) return 'fas';
+  if (library.definitions.fab[iconName]) return 'fab';
+  if (library.definitions.far[iconName]) return 'far';
+
+  return 'fas'; 
 };
+
+const computedSkillType = computed(() => {
+  return (iconName) => getIconType(iconName);
+});
 </script>
 
 <style scoped></style>
