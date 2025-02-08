@@ -24,7 +24,7 @@
                 </button>
             </div>
         </div>
-        <div class="flex justify-center w-full lg:w-1/3 mt-16 lg:mt-0">
+        <div class="flex justify-center w-auto lg:w-1/3 mt-16 lg:mt-0">
             <img :src="personalDetails.banner" alt="Kaman Khadka" class="rounded-lg max-h-80 w-full" />
         </div>
     </div>
